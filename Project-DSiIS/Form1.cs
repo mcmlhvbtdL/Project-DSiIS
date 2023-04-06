@@ -29,7 +29,7 @@ namespace Project_DSiIS
                 homePageForm.Close();
                 this.Show();
             }
-            catch (Exception ex)
+            catch (OracleException ex)
             {
                 MessageBox.Show($"Kết nối tới Oracle Database thất bại: {ex.Message}", "Tình trạng kết nối", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -37,15 +37,10 @@ namespace Project_DSiIS
             {
                 conn.Close();
             }
-
-
-
-
         }
 
         private void checkBoxShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-
             if (checkBoxShowPassword.Checked)
                 textBoxPassword.UseSystemPasswordChar = false;
             else
