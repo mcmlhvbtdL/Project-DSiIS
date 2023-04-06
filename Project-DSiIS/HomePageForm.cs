@@ -85,14 +85,14 @@ namespace Project_DSiIS
             // Xử lý TabPage về User
             else if (tabControlHomePage.SelectedIndex == tabPageAboutUser)
             {
-                
+
                 buttonListUser_Click(sender, e);
-                
+
             }
             // Xử lý TabPage về Role
             else if (tabControlHomePage.SelectedIndex == tabPageAboutRole)
             {
-
+                buttonListRole_Click(sender, e);
             }
         }
 
@@ -193,7 +193,7 @@ namespace Project_DSiIS
                 opt = "CASCADE";
             }
             DialogResult dr = MessageBox.Show($"Bạn có chắc là muốn xoá user: {username} ? ", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if(dr == DialogResult.Yes)
+            if (dr == DialogResult.Yes)
             {
                 try
                 {
@@ -242,6 +242,50 @@ namespace Project_DSiIS
             string queryStringShowUser = $"SELECT * FROM dba_users WHERE USERNAME like '{textBoxDropUser2.Text}%'";
             DataTable datatable = GetUserData(queryStringShowUser);
             dataGridViewListUser.DataSource = datatable;
+        }
+
+        private void buttonListRole_Click(object sender, EventArgs e)
+        {
+            string queryStringShowListRole = "SELECT * FROM DBA_ROLES";
+            DataTable datatable = GetUserData(queryStringShowListRole);
+            dataGridViewListRole.DataSource = datatable;
+
+        }
+
+        private void textBoxSreachListRole_TextChanged(object sender, EventArgs e)
+        {
+            string queryStringShowListRole = $"SELECT * FROM DBA_ROLES WHERE ROLE like '{textBoxSreachListRole.Text}%'";
+            DataTable datatable = GetUserData(queryStringShowListRole);
+            dataGridViewListRole.DataSource = datatable;
+        }
+
+        private void buttonCreateRole_Click(object sender, EventArgs e)
+        {
+            string rolemame = textBoxRolename.Text;
+            string password = textBoxRolenamePassword.Text;
+            string queryStringCreateRole = "";
+            if(String.IsNullOrWhiteSpace(password) == false)
+            {
+                queryStringCreateRole = $"CREATE ROLE {rolemame} IDENTIFIED BY {password}";
+            } else {
+                queryStringCreateRole = $"CREATE ROLE {rolemame}";
+            }
+            try
+            {
+                using (OracleCommand cmd1 = new OracleCommand(queryStringCreateRole, _conn))
+                {
+                    cmd1.ExecuteNonQuery();
+                    MessageBox.Show($"Role {rolemame} đã được tạo thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    buttonListRole_Click(sender,e);
+                }
+
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Có lỗi khi thực hiện việc tạo Role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
         }
     }
 }

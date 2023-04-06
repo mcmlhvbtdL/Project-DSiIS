@@ -77,6 +77,18 @@
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
             tabPageCreateRole = new TabPage();
+            dataGridViewListRole = new DataGridView();
+            label7 = new Label();
+            textBoxSreachListRole = new TextBox();
+            buttonListRole = new Button();
+            label6 = new Label();
+            panel3 = new Panel();
+            buttonCreateRole = new Button();
+            textBoxRolenamePassword = new TextBox();
+            lableRolePass = new Label();
+            label8 = new Label();
+            textBoxRolename = new TextBox();
+            labelRoleName = new Label();
             tabPageDeleteRole = new TabPage();
             tabPageUpdateRole = new TabPage();
             tabPageGrantRole = new TabPage();
@@ -102,6 +114,9 @@
             panelRemoveUser.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
+            tabPageCreateRole.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewListRole).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlHomePage
@@ -614,6 +629,12 @@
             // 
             // tabPageCreateRole
             // 
+            tabPageCreateRole.Controls.Add(dataGridViewListRole);
+            tabPageCreateRole.Controls.Add(label7);
+            tabPageCreateRole.Controls.Add(textBoxSreachListRole);
+            tabPageCreateRole.Controls.Add(buttonListRole);
+            tabPageCreateRole.Controls.Add(label6);
+            tabPageCreateRole.Controls.Add(panel3);
             tabPageCreateRole.Location = new Point(4, 24);
             tabPageCreateRole.Name = "tabPageCreateRole";
             tabPageCreateRole.Padding = new Padding(3);
@@ -621,6 +642,123 @@
             tabPageCreateRole.TabIndex = 0;
             tabPageCreateRole.Text = "Tạo Role";
             tabPageCreateRole.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewListRole
+            // 
+            dataGridViewListRole.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewListRole.Location = new Point(6, 38);
+            dataGridViewListRole.Name = "dataGridViewListRole";
+            dataGridViewListRole.RowTemplate.Height = 25;
+            dataGridViewListRole.Size = new Size(598, 180);
+            dataGridViewListRole.TabIndex = 16;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(450, 14);
+            label7.Name = "label7";
+            label7.Size = new Size(114, 15);
+            label7.TabIndex = 15;
+            label7.Text = "Search by Rolename";
+            // 
+            // textBoxSreachListRole
+            // 
+            textBoxSreachListRole.Location = new Point(284, 9);
+            textBoxSreachListRole.Name = "textBoxSreachListRole";
+            textBoxSreachListRole.Size = new Size(160, 23);
+            textBoxSreachListRole.TabIndex = 14;
+            textBoxSreachListRole.TextChanged += textBoxSreachListRole_TextChanged;
+            // 
+            // buttonListRole
+            // 
+            buttonListRole.Location = new Point(189, 9);
+            buttonListRole.Name = "buttonListRole";
+            buttonListRole.Size = new Size(79, 23);
+            buttonListRole.TabIndex = 13;
+            buttonListRole.Text = "Xem Role";
+            buttonListRole.UseVisualStyleBackColor = true;
+            buttonListRole.Click += buttonListRole_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ForeColor = SystemColors.MenuHighlight;
+            label6.Location = new Point(0, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(183, 32);
+            label6.TabIndex = 12;
+            label6.Text = "Danh sách role";
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(buttonCreateRole);
+            panel3.Controls.Add(textBoxRolenamePassword);
+            panel3.Controls.Add(lableRolePass);
+            panel3.Controls.Add(label8);
+            panel3.Controls.Add(textBoxRolename);
+            panel3.Controls.Add(labelRoleName);
+            panel3.Dock = DockStyle.Right;
+            panel3.Location = new Point(610, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(308, 360);
+            panel3.TabIndex = 8;
+            // 
+            // buttonCreateRole
+            // 
+            buttonCreateRole.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonCreateRole.Location = new Point(122, 175);
+            buttonCreateRole.Name = "buttonCreateRole";
+            buttonCreateRole.Size = new Size(123, 36);
+            buttonCreateRole.TabIndex = 5;
+            buttonCreateRole.Text = "Tạo Role";
+            buttonCreateRole.UseVisualStyleBackColor = true;
+            buttonCreateRole.Click += buttonCreateRole_Click;
+            // 
+            // textBoxRolenamePassword
+            // 
+            textBoxRolenamePassword.Location = new Point(122, 117);
+            textBoxRolenamePassword.Name = "textBoxRolenamePassword";
+            textBoxRolenamePassword.Size = new Size(166, 23);
+            textBoxRolenamePassword.TabIndex = 2;
+            textBoxRolenamePassword.UseSystemPasswordChar = true;
+            // 
+            // lableRolePass
+            // 
+            lableRolePass.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lableRolePass.Location = new Point(19, 116);
+            lableRolePass.Name = "lableRolePass";
+            lableRolePass.Size = new Size(83, 47);
+            lableRolePass.TabIndex = 3;
+            lableRolePass.Text = "Password (Optional)";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.ForeColor = SystemColors.MenuHighlight;
+            label8.Location = new Point(67, 8);
+            label8.Name = "label8";
+            label8.Size = new Size(159, 32);
+            label8.TabIndex = 2;
+            label8.Text = "Tạo role mới";
+            // 
+            // textBoxRolename
+            // 
+            textBoxRolename.Location = new Point(122, 74);
+            textBoxRolename.Name = "textBoxRolename";
+            textBoxRolename.Size = new Size(166, 23);
+            textBoxRolename.TabIndex = 1;
+            // 
+            // labelRoleName
+            // 
+            labelRoleName.AutoSize = true;
+            labelRoleName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelRoleName.Location = new Point(14, 77);
+            labelRoleName.Name = "labelRoleName";
+            labelRoleName.Size = new Size(76, 20);
+            labelRoleName.TabIndex = 0;
+            labelRoleName.Text = "Rolename";
             // 
             // tabPageDeleteRole
             // 
@@ -701,6 +839,11 @@
             panelRemoveUser.PerformLayout();
             tabPage4.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
+            tabPageCreateRole.ResumeLayout(false);
+            tabPageCreateRole.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewListRole).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -760,5 +903,17 @@
         private Label label4;
         private TextBox textBoxDropUser2;
         private Label label3;
+        private DataGridView dataGridViewListRole;
+        private Label label7;
+        private TextBox textBoxSreachListRole;
+        private Button buttonListRole;
+        private Label label6;
+        private Panel panel3;
+        private Button buttonCreateRole;
+        private TextBox textBoxRolenamePassword;
+        private Label lableRolePass;
+        private Label label8;
+        private TextBox textBoxRolename;
+        private Label labelRoleName;
     }
 }
