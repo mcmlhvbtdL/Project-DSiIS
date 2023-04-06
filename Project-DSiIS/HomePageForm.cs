@@ -27,6 +27,8 @@ namespace Project_DSiIS
             _conn = conn;
             InitializeCreateUserDataGridView();
             tabControlHomePage_SelectedIndexChanged(tabControlHomePage, EventArgs.Empty);
+            dataGridViewListUser.CellClick -= dataGridViewListUser_CellClick;
+            dataGridViewListUser.SelectionChanged += dataGridViewListUser_SelectionChanged;
 
         }
 
@@ -52,6 +54,7 @@ namespace Project_DSiIS
             // Xử lý TabPage Xem thông tin User
             if (tabControlHomePage.SelectedIndex == tabPageShowUser)
             {
+                buttonShowUser_Click(sender, e);
                 string queryStringGetDBName = "SELECT SYS_CONTEXT('USERENV', 'CON_NAME') FROM DUAL";
                 string queryStringGetUserName = "SELECT SYS_CONTEXT('USERENV', 'CURRENT_USER') FROM DUAL";
 
@@ -82,7 +85,9 @@ namespace Project_DSiIS
             // Xử lý TabPage về User
             else if (tabControlHomePage.SelectedIndex == tabPageAboutUser)
             {
-
+                
+                buttonListUser_Click(sender, e);
+                
             }
             // Xử lý TabPage về Role
             else if (tabControlHomePage.SelectedIndex == tabPageAboutRole)
@@ -187,20 +192,56 @@ namespace Project_DSiIS
             {
                 opt = "CASCADE";
             }
-            try
+            DialogResult dr = MessageBox.Show($"Bạn có chắc là muốn xoá user: {username} ? ", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if(dr == DialogResult.Yes)
             {
-                using (OracleCommand cmd1 = new OracleCommand(queryStringCreateUser, _conn))
+                try
                 {
-                    cmd1.ExecuteNonQuery();
-                    MessageBox.Show($"User {username} đã được xoá thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    using (OracleCommand cmd1 = new OracleCommand(queryStringCreateUser, _conn))
+                    {
+                        cmd1.ExecuteNonQuery();
+                        MessageBox.Show($"User {username} đã được xoá thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        buttonListUser_Click(sender, e);
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    MessageBox.Show($"Có lỗi khi thực hiện việc xoá User: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
             }
-            catch (OracleException ex)
-            {
-                MessageBox.Show($"Có lỗi khi thực hiện việc xoá User: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+        }
+
+        private void buttonListUser_Click(object sender, EventArgs e)
+        {
+            string queryStringShowUser = "SELECT * FROM dba_users ORDER BY CREATED DESC";
+            DataTable datatable = GetUserData(queryStringShowUser);
+            dataGridViewListUser.DataSource = datatable;
+        }
+
+
+        private void dataGridViewListUser_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string userName = dataGridViewListUser.CurrentRow.Cells[0].Value.ToString();
+            textBoxDropUser.Text = userName;
+
+        }
+
+        private void dataGridViewListUser_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewListUser.CurrentRow != null)
+            {
+                string userName = dataGridViewListUser.CurrentRow.Cells[0].Value.ToString();
+                textBoxDropUser.Text = userName;
             }
+        }
+
+        private void textBoxDropUser2_TextChanged(object sender, EventArgs e)
+        {
+            string queryStringShowUser = $"SELECT * FROM dba_users WHERE USERNAME like '{textBoxDropUser2.Text}%'";
+            DataTable datatable = GetUserData(queryStringShowUser);
+            dataGridViewListUser.DataSource = datatable;
         }
     }
 }

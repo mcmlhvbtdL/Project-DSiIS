@@ -59,6 +59,11 @@
             textBoxCreateUserUsername = new TextBox();
             labelUsernameCreateUser = new Label();
             tabPageDeleteUser = new TabPage();
+            label4 = new Label();
+            textBoxDropUser2 = new TextBox();
+            label3 = new Label();
+            buttonListUser = new Button();
+            dataGridViewListUser = new DataGridView();
             panelRemoveUser = new Panel();
             buttonDropUser = new Button();
             checkBoxDropUser = new CheckBox();
@@ -93,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewCreateUser).BeginInit();
             panel1.SuspendLayout();
             tabPageDeleteUser.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewListUser).BeginInit();
             panelRemoveUser.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -421,6 +427,11 @@
             // 
             // tabPageDeleteUser
             // 
+            tabPageDeleteUser.Controls.Add(label4);
+            tabPageDeleteUser.Controls.Add(textBoxDropUser2);
+            tabPageDeleteUser.Controls.Add(label3);
+            tabPageDeleteUser.Controls.Add(buttonListUser);
+            tabPageDeleteUser.Controls.Add(dataGridViewListUser);
             tabPageDeleteUser.Controls.Add(panelRemoveUser);
             tabPageDeleteUser.Location = new Point(4, 24);
             tabPageDeleteUser.Name = "tabPageDeleteUser";
@@ -429,6 +440,55 @@
             tabPageDeleteUser.TabIndex = 1;
             tabPageDeleteUser.Text = "Xoá User";
             tabPageDeleteUser.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(474, 24);
+            label4.Name = "label4";
+            label4.Size = new Size(114, 15);
+            label4.TabIndex = 13;
+            label4.Text = "Search by Username";
+            // 
+            // textBoxDropUser2
+            // 
+            textBoxDropUser2.Location = new Point(308, 16);
+            textBoxDropUser2.Name = "textBoxDropUser2";
+            textBoxDropUser2.Size = new Size(160, 23);
+            textBoxDropUser2.TabIndex = 12;
+            textBoxDropUser2.TextChanged += textBoxDropUser2_TextChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = SystemColors.MenuHighlight;
+            label3.Location = new Point(16, 7);
+            label3.Name = "label3";
+            label3.Size = new Size(187, 32);
+            label3.TabIndex = 11;
+            label3.Text = "Danh sách user";
+            // 
+            // buttonListUser
+            // 
+            buttonListUser.Location = new Point(209, 16);
+            buttonListUser.Name = "buttonListUser";
+            buttonListUser.Size = new Size(79, 23);
+            buttonListUser.TabIndex = 10;
+            buttonListUser.Text = "Xem User";
+            buttonListUser.UseVisualStyleBackColor = true;
+            buttonListUser.Click += buttonListUser_Click;
+            // 
+            // dataGridViewListUser
+            // 
+            dataGridViewListUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewListUser.Location = new Point(6, 47);
+            dataGridViewListUser.Name = "dataGridViewListUser";
+            dataGridViewListUser.RowTemplate.Height = 25;
+            dataGridViewListUser.Size = new Size(598, 180);
+            dataGridViewListUser.TabIndex = 9;
+            dataGridViewListUser.CellClick += dataGridViewListUser_CellClick;
+            dataGridViewListUser.SelectionChanged += dataGridViewListUser_SelectionChanged;
             // 
             // panelRemoveUser
             // 
@@ -446,7 +506,7 @@
             // buttonDropUser
             // 
             buttonDropUser.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonDropUser.Location = new Point(122, 169);
+            buttonDropUser.Location = new Point(122, 138);
             buttonDropUser.Name = "buttonDropUser";
             buttonDropUser.Size = new Size(123, 36);
             buttonDropUser.TabIndex = 5;
@@ -635,6 +695,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tabPageDeleteUser.ResumeLayout(false);
+            tabPageDeleteUser.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewListUser).EndInit();
             panelRemoveUser.ResumeLayout(false);
             panelRemoveUser.PerformLayout();
             tabPage4.ResumeLayout(false);
@@ -693,5 +755,10 @@
         private Label label5;
         private TextBox textBoxDropUser;
         private Label labelDropUser;
+        private Button buttonListUser;
+        private DataGridView dataGridViewListUser;
+        private Label label4;
+        private TextBox textBoxDropUser2;
+        private Label label3;
     }
 }
