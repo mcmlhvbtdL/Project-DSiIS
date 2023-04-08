@@ -91,6 +91,99 @@ CREATE TABLE PHANCONG
     PRIMARY KEY (MANV, MADA)
 );
 /
+
+--Cac thong tin stored procedure
+--sp xem toan bo thong tin user
+CREATE OR REPLACE PROCEDURE sp_get_all_users(p_cursor OUT SYS_REFCURSOR) IS
+BEGIN
+  OPEN p_cursor FOR
+    SELECT * FROM dba_users ORDER BY CREATED DESC;
+END sp_get_all_users;
+/
+--sp xem thong tin user theo username
+CREATE OR REPLACE PROCEDURE sp_get_user_by_username(p_username IN VARCHAR2, p_cursor OUT SYS_REFCURSOR) IS
+BEGIN
+  OPEN p_cursor FOR
+    SELECT * FROM dba_users WHERE USERNAME LIKE p_username || '%';
+END sp_get_user_by_username;
+/
+
+--sp xem thong tin toan bo cac role
+CREATE OR REPLACE PROCEDURE sp_get_all_role(p_cursor OUT SYS_REFCURSOR) IS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT * FROM dba_roles;
+END sp_get_all_role;
+/
+
+--sp xem thong tin role theo rolename
+CREATE OR REPLACE PROCEDURE sp_get_role_by_rolename(p_username IN VARCHAR2, p_cursor OUT SYS_REFCURSOR) IS
+BEGIN
+  OPEN p_cursor FOR
+    SELECT * FROM dba_roles WHERE ROLE LIKE p_username || '%';
+END sp_get_role_by_rolename;
+/
+
+--sp tao nguoi dung
+CREATE OR REPLACE PROCEDURE sp_create_user(
+    p_username IN VARCHAR2,
+    p_password IN VARCHAR2,
+    p_grant_create_session IN NUMBER
+)
+AS
+BEGIN
+    EXECUTE IMMEDIATE 'CREATE USER ' || p_username || ' IDENTIFIED BY ' || p_password;
+
+    IF p_grant_create_session = 1 THEN
+        EXECUTE IMMEDIATE 'GRANT CREATE SESSION TO ' || p_username;
+    END IF;
+END;
+/
+
+--sp drop nguoi dung
+CREATE OR REPLACE PROCEDURE sp_drop_user(
+    p_username IN VARCHAR2,
+    p_cascade IN NUMBER
+)
+AS
+    v_opt VARCHAR2(10) := '';
+BEGIN
+    IF p_cascade = 1 THEN
+        v_opt := ' CASCADE';
+    END IF;
+
+    EXECUTE IMMEDIATE 'DROP USER ' || p_username || v_opt;
+END;
+/
+
+--sp create role
+CREATE OR REPLACE PROCEDURE sp_create_role (
+    p_role_name IN VARCHAR2,
+    p_password_optional IN VARCHAR2,
+    p_password_optional_checked IN NUMBER
+)
+AS
+BEGIN
+    IF p_password_optional_checked = 1 THEN
+        EXECUTE IMMEDIATE 'CREATE ROLE ' || p_role_name || ' IDENTIFIED BY ' || p_password_optional;
+    ELSE
+        EXECUTE IMMEDIATE 'CREATE ROLE ' || p_role_name;
+    END IF;
+END;
+/
+
+
+--sp drop role
+CREATE OR REPLACE PROCEDURE sp_drop_role (
+    p_role_name IN VARCHAR2
+)
+AS
+BEGIN
+    EXECUTE IMMEDIATE 'DROP ROLE ' || p_role_name;
+END;
+/
+
+
 --Other:
 --Xem ten user hien tai
 SHOW USER;
@@ -146,16 +239,9 @@ FROM ALL_TAB_PRIVS;
 SELECT *
 FROM ROLE_TAB_PRIVS;
 
-
 SELECT *
 FROM USER_TAB_PRIVS;
 
-CREATE USER temp_user IDENTIFIED BY 123 
-GRANT CREATE SESSION TO temp_user
+SELECT * 
+FROM DBA_ROLE_PRIVS;
 
-
-SELECT * FROM DBA_ROLE_PRIVS;
-
-SELECT * FROM dba_users
-WHERE USERNAME = 'DUAHAU';
-ACCOUNT_STATUS

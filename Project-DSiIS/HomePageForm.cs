@@ -32,9 +32,9 @@ namespace Project_DSiIS
 
         }
 
-/*
- * Cac phan xy ly LOGIC
- */
+        /*
+         * Cac phan xy ly LOGIC
+         */
         private DataTable GetUserData(string queryString)
         {
             OracleDataAdapter adapter = new OracleDataAdapter(queryString, _conn);
@@ -161,14 +161,25 @@ namespace Project_DSiIS
             // Xử lý TabPage về User
             else if (tabControlHomePage.SelectedIndex == tabPageAboutUser)
             {
-
+                buttonListUserCreateUser_Click(sender, e);
                 buttonListUser_Click(sender, e);
-
             }
             // Xử lý TabPage về Role
             else if (tabControlHomePage.SelectedIndex == tabPageAboutRole)
             {
                 buttonListRole_Click(sender, e);
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                buttonListUserCreateUser_Click(sender, e);
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                buttonListUser_Click(sender, e);
             }
         }
 
@@ -200,45 +211,45 @@ namespace Project_DSiIS
         //Xử lý event khi click vào buttion Tạo User
         private void buttionCreateUser_Click(object sender, EventArgs e)
         {
+            string sp_name = "sp_create_user";
             string username = textBoxCreateUserUsername.Text;
 
             if (textBoxCreateUserPassword.Text == textBoxCreateUsernameConfirmPassword.Text)
             {
                 string password = textBoxCreateUserPassword.Text;
-                string queryStringCreateUser = $"CREATE USER {username} IDENTIFIED BY {password}";
-
+                var parameterDict = new Dictionary<string, object>
+                {
+                    {"p_username", username },
+                    {"p_password", password },
+                    {"p_create_session", checkBoxGrantCreateSession.Checked ? 1 : 0}
+                };
                 try
                 {
-                    using (OracleCommand cmd1 = new OracleCommand(queryStringCreateUser, _conn))
-                    {
-                        cmd1.ExecuteNonQuery();
-                    }
-
+                    ExecuteProcedureWithNoQuery(sp_name, parameterDict);
                     if (checkBoxGrantCreateSession.Checked)
                     {
-                        string opt = $"GRANT CREATE SESSION TO {username}";
-
-                        using (OracleCommand cmd2 = new OracleCommand(opt, _conn))
-                        {
-                            cmd2.ExecuteNonQuery();
-                        }
-
                         MessageBox.Show(text: $"User {username} đã được tạo thành công và cấp quyền CREATE SESSION privilege.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
                         MessageBox.Show($"User {username} đã được tạo thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     }
 
+                    //Refesh dataGridViewCreateUser
+                    buttonListUserCreateUser_Click(sender, e);
+                    //Add user vừa tạo vào dataGridViewCreateUser
                     DataTable datatable = dataGridViewCreateUser.DataSource as DataTable;
                     DataRow newRow = datatable.NewRow();
                     newRow["USERNAME"] = username;
                     datatable.Rows.Add(newRow);
                     datatable.AcceptChanges();
+
                 }
                 catch (OracleException ex)
                 {
                     MessageBox.Show($"Có lỗi khi thực hiện việc tạo User: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
             else
@@ -257,32 +268,27 @@ namespace Project_DSiIS
 
         private void buttonDropUser_Click(object sender, EventArgs e)
         {
+            string sp_name = "sp_drop_user";
             string username = textBoxDropUser.Text;
-            string opt = "";
-            string queryStringCreateUser = $"DROP USER \"{username}\" {opt}";
-            if (checkBoxDropUser.Checked)
-            {
-                opt = "CASCADE";
-            }
             DialogResult dr = MessageBox.Show($"Bạn có chắc là muốn xoá user: {username} ? ", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dr == DialogResult.Yes)
             {
+                var parameterDict = new Dictionary<string, object>
+                {
+                    { "p_username", username },
+                    { "p_cascade", checkBoxDropUser.Checked ? 1 : 0}
+                };
                 try
                 {
-                    using (OracleCommand cmd1 = new OracleCommand(queryStringCreateUser, _conn))
-                    {
-                        cmd1.ExecuteNonQuery();
-                        MessageBox.Show($"User {username} đã được xoá thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        buttonListUser_Click(sender, e);
-                    }
+                    ExecuteProcedureWithNoQuery(sp_name, parameterDict);
+                    MessageBox.Show($"User {username} đã được xoá thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    buttonListUser_Click(sender, e);
                 }
                 catch (OracleException ex)
                 {
                     MessageBox.Show($"Có lỗi khi thực hiện việc xoá User: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 }
             }
-
         }
 
         private void buttonListUser_Click(object sender, EventArgs e)
@@ -292,14 +298,14 @@ namespace Project_DSiIS
         }
 
 
-        
+
         private void dataGridViewListUser_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string userName = dataGridViewListUser.CurrentRow.Cells[0].Value.ToString();
             textBoxDropUser.Text = userName;
 
         }
-        
+
         private void dataGridViewListUser_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewListUser.CurrentRow != null)
@@ -330,33 +336,88 @@ namespace Project_DSiIS
 
         private void buttonCreateRole_Click(object sender, EventArgs e)
         {
-            string rolemame = textBoxRolename.Text;
+            string sp_name = "sp_create_role";
+            string roleName = textBoxRolename.Text;
             string password = textBoxRolenamePassword.Text;
-            string queryStringCreateRole = "";
+            Dictionary<string, object> parameterDict;
+
             if (String.IsNullOrWhiteSpace(password) == false)
             {
-                queryStringCreateRole = $"CREATE ROLE {rolemame} IDENTIFIED BY {password}";
+                parameterDict = new Dictionary<string, object>
+                {
+                    { "p_role_name", roleName },
+                    { "p_password_optional", password },
+                    { "p_password_optional_checked", 1 }
+                };
             }
             else
             {
-                queryStringCreateRole = $"CREATE ROLE {rolemame}";
+                parameterDict = new Dictionary<string, object>
+                {
+                    { "p_role_name", roleName },
+                    { "p_password_optional", null },
+                    { "p_password_optional_checked", 0 }
+                };
             }
+
             try
             {
-                using (OracleCommand cmd1 = new OracleCommand(queryStringCreateRole, _conn))
-                {
-                    cmd1.ExecuteNonQuery();
-                    MessageBox.Show($"Role {rolemame} đã được tạo thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    buttonListRole_Click(sender, e);
-                }
-
+                ExecuteProcedureWithNoQuery(sp_name, parameterDict);
+                MessageBox.Show($"Role {roleName} đã được tạo thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                buttonListRole_Click(sender, e);
             }
             catch (OracleException ex)
             {
                 MessageBox.Show($"Có lỗi khi thực hiện việc tạo Role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+        private void textBoxListUserCreateUser_TextChanged(object sender, EventArgs e)
+        {
+            string sp_name = "sp_get_user_by_username";
+            GetUserandRole(sp_name, dataGridViewListUserCreateUser, textBoxListUserCreateUser.Text);
+        }
 
+        private void buttonListUserCreateUser_Click(object sender, EventArgs e)
+        {
+            string sp_name = "sp_get_all_users";
+            GetUserandRole(sp_name, dataGridViewListUserCreateUser);
+        }
+
+        private void buttonDropRole_Click(object sender, EventArgs e)
+        {
+            string sp_name = "sp_drop_role";
+            string rolename = textBoxDropRole.Text;
+            DialogResult dr = MessageBox.Show($"Bạn có chắc là muốn xoá role: {rolename} ? ", "Xác nhận", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (dr == DialogResult.Yes)
+            {
+                var parameterDict = new Dictionary<string, object>
+                {
+                    { "p_role_name", rolename }
+                };
+                try
+                {
+                    ExecuteProcedureWithNoQuery(sp_name, parameterDict);
+                    MessageBox.Show($"User {rolename} đã được xoá thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    buttonViewRoleInDropRoleTab_Click(sender, e);
+                }
+                catch (OracleException ex)
+                {
+                    MessageBox.Show($"Có lỗi khi thực hiện việc xoá role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void buttonViewRoleInDropRoleTab_Click(object sender, EventArgs e)
+        {
+            string sp_name = "sp_get_all_role";
+            GetUserandRole(sp_name, dataGridViewDropRole);
+        }
+
+        private void textBoxViewRoleInDropRoleTab_TextChanged(object sender, EventArgs e)
+        {
+            string sp_name = "sp_get_role_by_rolename";
+            GetUserandRole(sp_name, dataGridViewDropRole, textBoxViewRoleInDropRoleTab.Text);
         }
     }
 }

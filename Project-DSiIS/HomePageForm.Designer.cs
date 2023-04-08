@@ -38,6 +38,7 @@
             tabPage2 = new TabPage();
             tabControlPrivileges = new TabControl();
             tabPageUser = new TabPage();
+            buttonPrivilUser = new Button();
             dataGridViewPrivilUser = new DataGridView();
             tabPageRole = new TabPage();
             dataGridViewRoles = new DataGridView();
@@ -45,6 +46,11 @@
             tabControl1 = new TabControl();
             tabPageCreateUser = new TabPage();
             panel2 = new Panel();
+            label10 = new Label();
+            textBoxListUserCreateUser = new TextBox();
+            buttonListUserCreateUser = new Button();
+            dataGridViewListUserCreateUser = new DataGridView();
+            label9 = new Label();
             buttonClearDataCreateUser = new Button();
             label2 = new Label();
             dataGridViewCreateUser = new DataGridView();
@@ -90,11 +96,20 @@
             textBoxRolename = new TextBox();
             labelRoleName = new Label();
             tabPageDeleteRole = new TabPage();
+            label11 = new Label();
+            textBoxViewRoleInDropRoleTab = new TextBox();
+            label12 = new Label();
+            buttonViewRoleInDropRoleTab = new Button();
+            dataGridViewDropRole = new DataGridView();
+            panel4 = new Panel();
+            buttonDropRole = new Button();
+            label13 = new Label();
+            textBoxDropRole = new TextBox();
+            label14 = new Label();
             tabPageUpdateRole = new TabPage();
             tabPageGrantRole = new TabPage();
             tabPageRevokeRole = new TabPage();
             tabPageEditRole = new TabPage();
-            buttonPrivilUser = new Button();
             tabControlHomePage.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewShowUser).BeginInit();
@@ -108,6 +123,7 @@
             tabControl1.SuspendLayout();
             tabPageCreateUser.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewListUserCreateUser).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCreateUser).BeginInit();
             panel1.SuspendLayout();
             tabPageDeleteUser.SuspendLayout();
@@ -118,6 +134,9 @@
             tabPageCreateRole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewListRole).BeginInit();
             panel3.SuspendLayout();
+            tabPageDeleteRole.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDropRole).BeginInit();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlHomePage
@@ -231,6 +250,15 @@
             tabPageUser.Text = "Theo User";
             tabPageUser.UseVisualStyleBackColor = true;
             // 
+            // buttonPrivilUser
+            // 
+            buttonPrivilUser.Location = new Point(5, 5);
+            buttonPrivilUser.Name = "buttonPrivilUser";
+            buttonPrivilUser.Size = new Size(129, 28);
+            buttonPrivilUser.TabIndex = 1;
+            buttonPrivilUser.Text = "Xem quyền các User";
+            buttonPrivilUser.UseVisualStyleBackColor = true;
+            // 
             // dataGridViewPrivilUser
             // 
             dataGridViewPrivilUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -288,6 +316,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(929, 394);
             tabControl1.TabIndex = 0;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
             // tabPageCreateUser
             // 
@@ -303,6 +332,11 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(label10);
+            panel2.Controls.Add(textBoxListUserCreateUser);
+            panel2.Controls.Add(buttonListUserCreateUser);
+            panel2.Controls.Add(dataGridViewListUserCreateUser);
+            panel2.Controls.Add(label9);
             panel2.Controls.Add(buttonClearDataCreateUser);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(dataGridViewCreateUser);
@@ -310,6 +344,53 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(603, 360);
             panel2.TabIndex = 9;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(464, 18);
+            label10.Name = "label10";
+            label10.Size = new Size(114, 15);
+            label10.TabIndex = 16;
+            label10.Text = "Search by Username";
+            // 
+            // textBoxListUserCreateUser
+            // 
+            textBoxListUserCreateUser.Location = new Point(293, 14);
+            textBoxListUserCreateUser.Name = "textBoxListUserCreateUser";
+            textBoxListUserCreateUser.Size = new Size(160, 23);
+            textBoxListUserCreateUser.TabIndex = 15;
+            textBoxListUserCreateUser.TextChanged += textBoxListUserCreateUser_TextChanged;
+            // 
+            // buttonListUserCreateUser
+            // 
+            buttonListUserCreateUser.Location = new Point(196, 14);
+            buttonListUserCreateUser.Name = "buttonListUserCreateUser";
+            buttonListUserCreateUser.Size = new Size(79, 23);
+            buttonListUserCreateUser.TabIndex = 14;
+            buttonListUserCreateUser.Text = "Xem User";
+            buttonListUserCreateUser.UseVisualStyleBackColor = true;
+            buttonListUserCreateUser.Click += buttonListUserCreateUser_Click;
+            // 
+            // dataGridViewListUserCreateUser
+            // 
+            dataGridViewListUserCreateUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewListUserCreateUser.Location = new Point(3, 43);
+            dataGridViewListUserCreateUser.Name = "dataGridViewListUserCreateUser";
+            dataGridViewListUserCreateUser.RowTemplate.Height = 25;
+            dataGridViewListUserCreateUser.Size = new Size(595, 139);
+            dataGridViewListUserCreateUser.TabIndex = 13;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.ForeColor = SystemColors.MenuHighlight;
+            label9.Location = new Point(3, 8);
+            label9.Name = "label9";
+            label9.Size = new Size(187, 32);
+            label9.TabIndex = 12;
+            label9.Text = "Danh sách user";
             // 
             // buttonClearDataCreateUser
             // 
@@ -326,7 +407,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.MenuHighlight;
-            label2.Location = new Point(114, 17);
+            label2.Location = new Point(125, 185);
             label2.Name = "label2";
             label2.Size = new Size(347, 32);
             label2.TabIndex = 8;
@@ -335,10 +416,10 @@
             // dataGridViewCreateUser
             // 
             dataGridViewCreateUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCreateUser.Location = new Point(3, 72);
+            dataGridViewCreateUser.Location = new Point(3, 220);
             dataGridViewCreateUser.Name = "dataGridViewCreateUser";
             dataGridViewCreateUser.RowTemplate.Height = 25;
-            dataGridViewCreateUser.Size = new Size(597, 249);
+            dataGridViewCreateUser.Size = new Size(597, 101);
             dataGridViewCreateUser.TabIndex = 1;
             // 
             // panel1
@@ -764,6 +845,12 @@
             // 
             // tabPageDeleteRole
             // 
+            tabPageDeleteRole.Controls.Add(label11);
+            tabPageDeleteRole.Controls.Add(textBoxViewRoleInDropRoleTab);
+            tabPageDeleteRole.Controls.Add(label12);
+            tabPageDeleteRole.Controls.Add(buttonViewRoleInDropRoleTab);
+            tabPageDeleteRole.Controls.Add(dataGridViewDropRole);
+            tabPageDeleteRole.Controls.Add(panel4);
             tabPageDeleteRole.Location = new Point(4, 24);
             tabPageDeleteRole.Name = "tabPageDeleteRole";
             tabPageDeleteRole.Padding = new Padding(3);
@@ -771,6 +858,104 @@
             tabPageDeleteRole.TabIndex = 1;
             tabPageDeleteRole.Text = "Xoá Role";
             tabPageDeleteRole.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(472, 24);
+            label11.Name = "label11";
+            label11.Size = new Size(114, 15);
+            label11.TabIndex = 19;
+            label11.Text = "Search by Rolename";
+            // 
+            // textBoxViewRoleInDropRoleTab
+            // 
+            textBoxViewRoleInDropRoleTab.Location = new Point(306, 16);
+            textBoxViewRoleInDropRoleTab.Name = "textBoxViewRoleInDropRoleTab";
+            textBoxViewRoleInDropRoleTab.Size = new Size(160, 23);
+            textBoxViewRoleInDropRoleTab.TabIndex = 18;
+            textBoxViewRoleInDropRoleTab.TextChanged += textBoxViewRoleInDropRoleTab_TextChanged;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label12.ForeColor = SystemColors.MenuHighlight;
+            label12.Location = new Point(14, 7);
+            label12.Name = "label12";
+            label12.Size = new Size(183, 32);
+            label12.TabIndex = 17;
+            label12.Text = "Danh sách role";
+            // 
+            // buttonViewRoleInDropRoleTab
+            // 
+            buttonViewRoleInDropRoleTab.Location = new Point(207, 16);
+            buttonViewRoleInDropRoleTab.Name = "buttonViewRoleInDropRoleTab";
+            buttonViewRoleInDropRoleTab.Size = new Size(79, 23);
+            buttonViewRoleInDropRoleTab.TabIndex = 16;
+            buttonViewRoleInDropRoleTab.Text = "Xem Role";
+            buttonViewRoleInDropRoleTab.UseVisualStyleBackColor = true;
+            buttonViewRoleInDropRoleTab.Click += buttonViewRoleInDropRoleTab_Click;
+            // 
+            // dataGridViewDropRole
+            // 
+            dataGridViewDropRole.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewDropRole.Location = new Point(4, 47);
+            dataGridViewDropRole.Name = "dataGridViewDropRole";
+            dataGridViewDropRole.RowTemplate.Height = 25;
+            dataGridViewDropRole.Size = new Size(598, 180);
+            dataGridViewDropRole.TabIndex = 15;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(buttonDropRole);
+            panel4.Controls.Add(label13);
+            panel4.Controls.Add(textBoxDropRole);
+            panel4.Controls.Add(label14);
+            panel4.Dock = DockStyle.Right;
+            panel4.Location = new Point(610, 3);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(308, 360);
+            panel4.TabIndex = 14;
+            // 
+            // buttonDropRole
+            // 
+            buttonDropRole.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonDropRole.Location = new Point(122, 138);
+            buttonDropRole.Name = "buttonDropRole";
+            buttonDropRole.Size = new Size(123, 36);
+            buttonDropRole.TabIndex = 5;
+            buttonDropRole.Text = "Xoá User";
+            buttonDropRole.UseVisualStyleBackColor = true;
+            buttonDropRole.Click += buttonDropRole_Click;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label13.ForeColor = SystemColors.MenuHighlight;
+            label13.Location = new Point(84, 14);
+            label13.Name = "label13";
+            label13.Size = new Size(115, 32);
+            label13.TabIndex = 2;
+            label13.Text = "Xoá Role";
+            // 
+            // textBoxDropRole
+            // 
+            textBoxDropRole.Location = new Point(122, 74);
+            textBoxDropRole.Name = "textBoxDropRole";
+            textBoxDropRole.Size = new Size(166, 23);
+            textBoxDropRole.TabIndex = 1;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Location = new Point(22, 77);
+            label14.Name = "label14";
+            label14.Size = new Size(80, 20);
+            label14.TabIndex = 0;
+            label14.Text = "Role name";
             // 
             // tabPageUpdateRole
             // 
@@ -808,15 +993,6 @@
             tabPageEditRole.Text = "Chỉnh sửa quyền Role";
             tabPageEditRole.UseVisualStyleBackColor = true;
             // 
-            // buttonPrivilUser
-            // 
-            buttonPrivilUser.Location = new Point(5, 5);
-            buttonPrivilUser.Name = "buttonPrivilUser";
-            buttonPrivilUser.Size = new Size(129, 28);
-            buttonPrivilUser.TabIndex = 1;
-            buttonPrivilUser.Text = "Xem quyền các User";
-            buttonPrivilUser.UseVisualStyleBackColor = true;
-            // 
             // HomePageForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -840,6 +1016,7 @@
             tabPageCreateUser.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewListUserCreateUser).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCreateUser).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -855,6 +1032,11 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewListRole).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            tabPageDeleteRole.ResumeLayout(false);
+            tabPageDeleteRole.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDropRole).EndInit();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -927,5 +1109,20 @@
         private TextBox textBoxRolename;
         private Label labelRoleName;
         private Button buttonPrivilUser;
+        private Label label10;
+        private TextBox textBoxListUserCreateUser;
+        private Button buttonListUserCreateUser;
+        private DataGridView dataGridViewListUserCreateUser;
+        private Label label9;
+        private Label label11;
+        private TextBox textBoxViewRoleInDropRoleTab;
+        private Label label12;
+        private Button buttonViewRoleInDropRoleTab;
+        private DataGridView dataGridViewDropRole;
+        private Panel panel4;
+        private Button buttonDropRole;
+        private Label label13;
+        private TextBox textBoxDropRole;
+        private Label label14;
     }
 }
