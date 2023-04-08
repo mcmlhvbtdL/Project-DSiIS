@@ -32,6 +32,9 @@ namespace Project_DSiIS
 
         }
 
+/*
+ * Cac phan xy ly LOGIC
+ */
         private DataTable GetUserData(string queryString)
         {
             OracleDataAdapter adapter = new OracleDataAdapter(queryString, _conn);
@@ -48,6 +51,79 @@ namespace Project_DSiIS
             return datatable;
         }
 
+        private DataTable GetUserDataFromProcedure(string procedureName, List<OracleParameter> parameters)
+        {
+            DataTable datatable = new DataTable();
+            try
+            {
+                using (OracleCommand command = new OracleCommand(procedureName, _conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    if (parameters != null)
+                    {
+                        foreach (OracleParameter param in parameters)
+                        {
+                            command.Parameters.Add(param);
+                        }
+                    }
+
+                    OracleParameter cursorParam = new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output);
+                    command.Parameters.Add(cursorParam);
+
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(command))
+                    {
+                        adapter.Fill(datatable);
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Có lỗi khi truy suất: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return datatable;
+        }
+
+        private void ExecuteProcedureWithNoQuery(string procedureName, Dictionary<string, object> parameterDict)
+        {
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            foreach (var entry in parameterDict)
+            {
+                parameters.Add(new OracleParameter(entry.Key, OracleDbType.Varchar2, ParameterDirection.Input) { Value = entry.Value });
+            }
+
+            using (OracleCommand cmd = new OracleCommand(procedureName, _conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                foreach (var parameter in parameters)
+                {
+                    cmd.Parameters.Add(parameter);
+                }
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void GetUserandRole(string procedureName, DataGridView dataGridViewName, string searchString = null)
+        {
+            List<OracleParameter> parameters = null;
+            if (searchString != null)
+            {
+                parameters = new List<OracleParameter>
+                {
+                    new OracleParameter("p_username", OracleDbType.Varchar2, ParameterDirection.Input)
+                    { Value = searchString }
+                };
+            }
+            DataTable datatable = GetUserDataFromProcedure(procedureName, parameters);
+            dataGridViewName.DataSource = datatable;
+        }
+
+        /*
+         * Cac phan lien quan den giao dien
+        */
         // Xử lý TabPage
         private void tabControlHomePage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -99,10 +175,8 @@ namespace Project_DSiIS
         //Xử lý Event khi click vào button Xem danh sách user
         private void buttonShowUser_Click(object sender, EventArgs e)
         {
-            //1>  Xem danh sach user trong he thong
-            string queryStringShowUser = "SELECT * FROM dba_users ORDER BY CREATED DESC";
-            DataTable datatable = GetUserData(queryStringShowUser);
-            dataGridViewShowUser.DataSource = datatable;
+            string sp_name = "sp_get_all_users";
+            GetUserandRole(sp_name, dataGridViewShowUser);
         }
 
         private void textBoxSearchUserName_MouseClick(object sender, MouseEventArgs e)
@@ -112,9 +186,8 @@ namespace Project_DSiIS
 
         private void textBoxSearchUserName_TextChanged(object sender, EventArgs e)
         {
-            string queryStringShowUser = $"SELECT * FROM dba_users WHERE USERNAME like '{textBoxSearchUserName.Text}%'";
-            DataTable datatable = GetUserData(queryStringShowUser);
-            dataGridViewShowUser.DataSource = datatable;
+            string sp_name = "sp_get_user_by_username";
+            GetUserandRole(sp_name, dataGridViewShowUser, textBoxSearchUserName.Text);
         }
 
         private void InitializeCreateUserDataGridView()
@@ -180,7 +253,6 @@ namespace Project_DSiIS
         private void buttonClearDataCreateUser_Click(object sender, EventArgs e)
         {
             InitializeCreateUserDataGridView();
-
         }
 
         private void buttonDropUser_Click(object sender, EventArgs e)
@@ -215,19 +287,19 @@ namespace Project_DSiIS
 
         private void buttonListUser_Click(object sender, EventArgs e)
         {
-            string queryStringShowUser = "SELECT * FROM dba_users ORDER BY CREATED DESC";
-            DataTable datatable = GetUserData(queryStringShowUser);
-            dataGridViewListUser.DataSource = datatable;
+            string sp_name = "sp_get_all_users";
+            GetUserandRole(sp_name, dataGridViewListUser);
         }
 
 
+        
         private void dataGridViewListUser_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string userName = dataGridViewListUser.CurrentRow.Cells[0].Value.ToString();
             textBoxDropUser.Text = userName;
 
         }
-
+        
         private void dataGridViewListUser_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewListUser.CurrentRow != null)
@@ -239,24 +311,21 @@ namespace Project_DSiIS
 
         private void textBoxDropUser2_TextChanged(object sender, EventArgs e)
         {
-            string queryStringShowUser = $"SELECT * FROM dba_users WHERE USERNAME like '{textBoxDropUser2.Text}%'";
-            DataTable datatable = GetUserData(queryStringShowUser);
-            dataGridViewListUser.DataSource = datatable;
+            string sp_name = "sp_get_user_by_username";
+            GetUserandRole(sp_name, dataGridViewListUser, textBoxDropUser2.Text);
         }
 
         private void buttonListRole_Click(object sender, EventArgs e)
         {
-            string queryStringShowListRole = "SELECT * FROM DBA_ROLES";
-            DataTable datatable = GetUserData(queryStringShowListRole);
-            dataGridViewListRole.DataSource = datatable;
-
+            string sp_name = "sp_get_all_role";
+            GetUserandRole(sp_name, dataGridViewListRole);
         }
 
         private void textBoxSreachListRole_TextChanged(object sender, EventArgs e)
         {
-            string queryStringShowListRole = $"SELECT * FROM DBA_ROLES WHERE ROLE like '{textBoxSreachListRole.Text}%'";
-            DataTable datatable = GetUserData(queryStringShowListRole);
-            dataGridViewListRole.DataSource = datatable;
+
+            string sp_name = "sp_get_role_by_rolename";
+            GetUserandRole(sp_name, dataGridViewListRole, textBoxSreachListRole.Text);
         }
 
         private void buttonCreateRole_Click(object sender, EventArgs e)
@@ -264,10 +333,12 @@ namespace Project_DSiIS
             string rolemame = textBoxRolename.Text;
             string password = textBoxRolenamePassword.Text;
             string queryStringCreateRole = "";
-            if(String.IsNullOrWhiteSpace(password) == false)
+            if (String.IsNullOrWhiteSpace(password) == false)
             {
                 queryStringCreateRole = $"CREATE ROLE {rolemame} IDENTIFIED BY {password}";
-            } else {
+            }
+            else
+            {
                 queryStringCreateRole = $"CREATE ROLE {rolemame}";
             }
             try
@@ -276,7 +347,7 @@ namespace Project_DSiIS
                 {
                     cmd1.ExecuteNonQuery();
                     MessageBox.Show($"Role {rolemame} đã được tạo thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    buttonListRole_Click(sender,e);
+                    buttonListRole_Click(sender, e);
                 }
 
             }

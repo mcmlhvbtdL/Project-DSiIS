@@ -94,6 +94,7 @@
             tabPageGrantRole = new TabPage();
             tabPageRevokeRole = new TabPage();
             tabPageEditRole = new TabPage();
+            buttonPrivilUser = new Button();
             tabControlHomePage.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewShowUser).BeginInit();
@@ -219,6 +220,7 @@
             // 
             // tabPageUser
             // 
+            tabPageUser.Controls.Add(buttonPrivilUser);
             tabPageUser.Controls.Add(dataGridViewPrivilUser);
             tabPageUser.Location = new Point(4, 24);
             tabPageUser.Margin = new Padding(2);
@@ -806,6 +808,15 @@
             tabPageEditRole.Text = "Chỉnh sửa quyền Role";
             tabPageEditRole.UseVisualStyleBackColor = true;
             // 
+            // buttonPrivilUser
+            // 
+            buttonPrivilUser.Location = new Point(5, 5);
+            buttonPrivilUser.Name = "buttonPrivilUser";
+            buttonPrivilUser.Size = new Size(129, 28);
+            buttonPrivilUser.TabIndex = 1;
+            buttonPrivilUser.Text = "Xem quyền các User";
+            buttonPrivilUser.UseVisualStyleBackColor = true;
+            // 
             // HomePageForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -915,5 +926,6 @@
         private Label label8;
         private TextBox textBoxRolename;
         private Label labelRoleName;
+        private Button buttonPrivilUser;
     }
 }

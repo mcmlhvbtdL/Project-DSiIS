@@ -1,3 +1,5 @@
+--Cac cau lenh xoa cau truc
+
 --ALTER TABLE NHANVIEN DROP CONSTRAINT fk_NHANVIEN
 --ALTER TABLE PHONGBAN DROP CONSTRAINT fk_PHONGBAN_NHANVIEN
 --ALTER TABLE DEAN DROP CONSTRAINT fk_DEAN_PHONGBAN
@@ -92,20 +94,28 @@ CREATE TABLE PHANCONG
 --Other:
 --Xem ten user hien tai
 SHOW USER;
+SELECT SYS_CONTEXT('USERENV', 'CURRENT_USER') FROM DUAL;
 
 --Check connect PDB or CDB
 SELECT SYS_CONTEXT('USERENV', 'CON_NAME') AS container_name FROM DUAL;
 /
+
+--Check name DB
+SELECT SYS_CONTEXT('USERENV', 'CON_NAME') FROM DUAL;
+SELECT SYS_CONTEXT('USERENV', 'SESSION_USER') FROM DUAL;
+
 --Check list PDB
 SELECT PDB_NAME, STATUS FROM DBA_PDBS;
 ALTER PLUGGABLE DATABASE XEPDB1 OPEN;
 /
 
+SELECT * FROM DBA_ROLES
+---
 
 SELECT * FROM DEAN;
 --1> Show danh sach user
 --Option1
-SELECT * FROM dba_users;
+SELECT * FROM dba_users ORDER BY CREATED DESC;
 
 --Option2
 SET SERVEROUTPUT ON;
@@ -124,31 +134,28 @@ END;
 
 
 -- Thông tin v? quy?n (privileges) c?a m?i user/ role trên các ??i t??ng d? li?u
-SET SERVEROUTPUT ON;
-DECLARE
-    CURSOR c_privileges IS
-        SELECT GRANTEE, OWNER, TABLE_NAME, PRIVILEGE
-        FROM DBA_TAB_PRIVS
-        ORDER BY GRANTEE, OWNER, TABLE_NAME;
-BEGIN
-    DBMS_OUTPUT.ENABLE(9000000); -- Increase the buffer size to 10 MB
+--Tr
+SELECT * FROM USER_TAB_PRIVS;
 
-    FOR r_privilege IN c_privileges LOOP
-        DBMS_OUTPUT.PUT_LINE('Grantee: ' || r_privilege.GRANTEE || 
-                             ', Owner: ' || r_privilege.OWNER || 
-                             ', Table: ' || r_privilege.TABLE_NAME || 
-                             ', Privilege: ' || r_privilege.PRIVILEGE);
-    END LOOP;
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLCODE || ' - ' || SQLERRM);
-END;
-/
+SELECT *
+FROM ALL_TAB_PRIVS;
 
---Cho phép t?o m?i, xóa, s?a (hi?u ch?nh) user ho?c role.
+SELECT *
+FROM ALL_TAB_PRIVS;
 
-SHOW USER;
-SELECT SYS_CONTEXT('USERENV', 'CON_NAME') FROM DUAL;
-SELECT SYS_CONTEXT('USERENV', 'CURRENT_USER') FROM DUAL;
+SELECT *
+FROM ROLE_TAB_PRIVS;
 
-SELECT SYS_CONTEXT('USERENV', 'SESSION_USER') FROM DUAL;
+
+SELECT *
+FROM USER_TAB_PRIVS;
+
+CREATE USER temp_user IDENTIFIED BY 123 
+GRANT CREATE SESSION TO temp_user
+
+
+SELECT * FROM DBA_ROLE_PRIVS;
+
+SELECT * FROM dba_users
+WHERE USERNAME = 'DUAHAU';
+ACCOUNT_STATUS
