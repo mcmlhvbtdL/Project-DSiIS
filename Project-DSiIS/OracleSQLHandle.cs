@@ -9,21 +9,36 @@ namespace Project_DSiIS
         {
             public static class SP
             {
+                //USER
                 public const string GetAllUsers = "sp_get_all_users";
                 public const string GetUserByUsername = "sp_get_user_by_username";
                 public const string CreateUser = "sp_create_user";
                 public const string DropUser = "sp_drop_user";
                 public const string EditUserPassword = "sp_update_user_password";
+
+
+                //ROLES
                 public const string GetAllRoles = "sp_get_all_role";
                 public const string GetRoleByRoleName = "sp_get_role_by_rolename";
                 public const string CreateRole = "sp_create_role";
                 public const string DropRole = "sp_drop_role";
+
+                //PRIVILEGES
+                //USER
                 public const string GetUserPrivileges = "sp_get_user_privileges";
-                public const string GetRolePrivileges = "sp_get_role_privileges";
+                public const string GetUserPrivilegesByUserName = "sp_get_user_privileges_by_username";
                 public const string GrantPremissionToUser = "sp_grant_permission_to_user";
                 public const string RevokePremissionFromUser = "sp_revoke_permission_from_user";
+                
+                //ROLES
+                public const string GetRolePrivileges = "sp_get_role_privileges";
+                public const string GetRolePrivilegeByRoleName = "sp_get_role_privileges_rolename";
                 public const string GrantPremissionToRole = "sp_grant_permission_to_role";
                 public const string RevokePremissionFromRole = "sp_revoke_permission_from_role";
+
+                //OTHER
+                public const string ShowUserPermission = "sp_show_user_permissions";
+                public const string ShowRolePermission = "sp_show_role_permissions";
             }
 
             private OracleConnection _conn;

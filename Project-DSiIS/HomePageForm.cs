@@ -205,7 +205,6 @@ namespace Project_DSiIS
 
         private void textBoxSearchUserName_TextChanged(object sender, EventArgs e)
         {
-            string sp_name = "sp_get_user_by_username";
             _orl.GetUserandRole(OracleSQLHandle.SP.GetUserByUsername, dataGridViewShowUser, textBoxSearchUserName.Text);
         }
 
@@ -657,6 +656,37 @@ namespace Project_DSiIS
             {
                 MessageBox.Show($"Có lỗi khi thực hiện việcThu hồi quyền từ Role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void SearchByUserName_TextChanged(object sender, EventArgs e)
+        {
+            _orl.GetUserandRole(OracleSQLHandle.SP.GetUserPrivilegesByUserName, dataGridViewPrivilUser, SearchByUserName.Text);
+        }
+
+        private void buttonGrantUserInfo_Click(object sender, EventArgs e)
+        {
+            _orl.GetUserandRole(OracleSQLHandle.SP.ShowUserPermission, dataGridView1, textBoxGrantUserInfo.Text);
+        }
+
+        private void buttonRevokeUserInfo_Click(object sender, EventArgs e)
+        {
+            _orl.GetUserandRole(OracleSQLHandle.SP.ShowUserPermission, dataGridView2, textBoxRevokeUserInfo.Text);
+        }
+
+        private void buttonRoleInfo_Click(object sender, EventArgs e)
+        {
+            _orl.GetUserandRole(OracleSQLHandle.SP.ShowRolePermission, dataGridView3, textBoxRoleInfo.Text);
+        }
+
+        private void buttonRoleInfoRevoke_Click(object sender, EventArgs e)
+        {
+            _orl.GetUserandRole(OracleSQLHandle.SP.ShowRolePermission, dataGridView4, textBoxRoleInfoRevoke.Text);
+
+        }
+
+        private void SearchByRole_TextChanged(object sender, EventArgs e)
+        {
+            _orl.GetUserandRole(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewRoles,SearchByRole.Text);
         }
     }
 }

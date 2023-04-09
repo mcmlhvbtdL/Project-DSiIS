@@ -38,6 +38,8 @@
             tabPage2 = new TabPage();
             tabControlPrivileges = new TabControl();
             tabPageUser = new TabPage();
+            label39 = new Label();
+            SearchByUserName = new TextBox();
             buttonPrivilUser = new Button();
             dataGridViewPrivilUser = new DataGridView();
             tabPageRole = new TabPage();
@@ -88,6 +90,9 @@
             textBoxEditUserUsername = new TextBox();
             label18 = new Label();
             tabPageGrantUser = new TabPage();
+            buttonGrantUserInfo = new Button();
+            textBoxGrantUserInfo = new TextBox();
+            dataGridView1 = new DataGridView();
             panel6 = new Panel();
             label23 = new Label();
             buttonGrantUser = new Button();
@@ -101,6 +106,9 @@
             comboBoxUsers = new ComboBox();
             label19 = new Label();
             tabPageRevokeUser = new TabPage();
+            buttonRevokeUserInfo = new Button();
+            textBoxRevokeUserInfo = new TextBox();
+            dataGridView2 = new DataGridView();
             panel7 = new Panel();
             label24 = new Label();
             buttonRevokeUser = new Button();
@@ -141,6 +149,9 @@
             label14 = new Label();
             tabPageUpdateRole = new TabPage();
             tabPageGrantRole = new TabPage();
+            buttonRoleInfo = new Button();
+            textBoxRoleInfo = new TextBox();
+            dataGridView3 = new DataGridView();
             panel8 = new Panel();
             label29 = new Label();
             buttonGrantRole = new Button();
@@ -153,6 +164,9 @@
             comboBoxRoles = new ComboBox();
             label33 = new Label();
             tabPageRevokeRole = new TabPage();
+            buttonRoleInfoRevoke = new Button();
+            textBoxRoleInfoRevoke = new TextBox();
+            dataGridView4 = new DataGridView();
             panel9 = new Panel();
             label34 = new Label();
             buttonGrantRoleRevoke = new Button();
@@ -165,6 +179,7 @@
             comboBoxRolesRevoke = new ComboBox();
             label38 = new Label();
             tabPageEditRole = new TabPage();
+            SearchByRole = new TextBox();
             tabControlHomePage.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewShowUser).BeginInit();
@@ -187,8 +202,10 @@
             tabPageUpdateUser.SuspendLayout();
             panel5.SuspendLayout();
             tabPageGrantUser.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel6.SuspendLayout();
             tabPageRevokeUser.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             panel7.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -199,8 +216,10 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewDropRole).BeginInit();
             panel4.SuspendLayout();
             tabPageGrantRole.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
             panel8.SuspendLayout();
             tabPageRevokeRole.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
             panel9.SuspendLayout();
             SuspendLayout();
             // 
@@ -304,6 +323,8 @@
             // 
             // tabPageUser
             // 
+            tabPageUser.Controls.Add(label39);
+            tabPageUser.Controls.Add(SearchByUserName);
             tabPageUser.Controls.Add(buttonPrivilUser);
             tabPageUser.Controls.Add(dataGridViewPrivilUser);
             tabPageUser.Location = new Point(4, 24);
@@ -315,13 +336,30 @@
             tabPageUser.Text = "Theo User";
             tabPageUser.UseVisualStyleBackColor = true;
             // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Location = new Point(375, 12);
+            label39.Name = "label39";
+            label39.Size = new Size(102, 15);
+            label39.TabIndex = 3;
+            label39.Text = "Search By Grantee";
+            // 
+            // SearchByUserName
+            // 
+            SearchByUserName.Location = new Point(191, 5);
+            SearchByUserName.Name = "SearchByUserName";
+            SearchByUserName.Size = new Size(178, 23);
+            SearchByUserName.TabIndex = 2;
+            SearchByUserName.TextChanged += SearchByUserName_TextChanged;
+            // 
             // buttonPrivilUser
             // 
             buttonPrivilUser.Location = new Point(5, 5);
             buttonPrivilUser.Name = "buttonPrivilUser";
-            buttonPrivilUser.Size = new Size(129, 28);
+            buttonPrivilUser.Size = new Size(180, 28);
             buttonPrivilUser.TabIndex = 1;
-            buttonPrivilUser.Text = "Xem quyền các User";
+            buttonPrivilUser.Text = "Xem quyền hệ thống các User";
             buttonPrivilUser.UseVisualStyleBackColor = true;
             buttonPrivilUser.Click += buttonPrivilUser_Click;
             // 
@@ -338,6 +376,7 @@
             // 
             // tabPageRole
             // 
+            tabPageRole.Controls.Add(SearchByRole);
             tabPageRole.Controls.Add(buttonPrivilRole);
             tabPageRole.Controls.Add(dataGridViewRoles);
             tabPageRole.Location = new Point(4, 24);
@@ -829,6 +868,9 @@
             // 
             // tabPageGrantUser
             // 
+            tabPageGrantUser.Controls.Add(buttonGrantUserInfo);
+            tabPageGrantUser.Controls.Add(textBoxGrantUserInfo);
+            tabPageGrantUser.Controls.Add(dataGridView1);
             tabPageGrantUser.Controls.Add(panel6);
             tabPageGrantUser.Location = new Point(4, 24);
             tabPageGrantUser.Name = "tabPageGrantUser";
@@ -836,6 +878,32 @@
             tabPageGrantUser.TabIndex = 3;
             tabPageGrantUser.Text = "Cấp quyền cho User";
             tabPageGrantUser.UseVisualStyleBackColor = true;
+            // 
+            // buttonGrantUserInfo
+            // 
+            buttonGrantUserInfo.Location = new Point(269, 38);
+            buttonGrantUserInfo.Name = "buttonGrantUserInfo";
+            buttonGrantUserInfo.Size = new Size(153, 23);
+            buttonGrantUserInfo.TabIndex = 3;
+            buttonGrantUserInfo.Text = "Kiểm tra quyền của User";
+            buttonGrantUserInfo.UseVisualStyleBackColor = true;
+            buttonGrantUserInfo.Click += buttonGrantUserInfo_Click;
+            // 
+            // textBoxGrantUserInfo
+            // 
+            textBoxGrantUserInfo.Location = new Point(83, 38);
+            textBoxGrantUserInfo.Name = "textBoxGrantUserInfo";
+            textBoxGrantUserInfo.Size = new Size(150, 23);
+            textBoxGrantUserInfo.TabIndex = 2;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(3, 67);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(516, 282);
+            dataGridView1.TabIndex = 1;
             // 
             // panel6
             // 
@@ -963,6 +1031,9 @@
             // 
             // tabPageRevokeUser
             // 
+            tabPageRevokeUser.Controls.Add(buttonRevokeUserInfo);
+            tabPageRevokeUser.Controls.Add(textBoxRevokeUserInfo);
+            tabPageRevokeUser.Controls.Add(dataGridView2);
             tabPageRevokeUser.Controls.Add(panel7);
             tabPageRevokeUser.Location = new Point(4, 24);
             tabPageRevokeUser.Name = "tabPageRevokeUser";
@@ -970,6 +1041,32 @@
             tabPageRevokeUser.TabIndex = 4;
             tabPageRevokeUser.Text = "Thu hồi quyền của User";
             tabPageRevokeUser.UseVisualStyleBackColor = true;
+            // 
+            // buttonRevokeUserInfo
+            // 
+            buttonRevokeUserInfo.Location = new Point(272, 46);
+            buttonRevokeUserInfo.Name = "buttonRevokeUserInfo";
+            buttonRevokeUserInfo.Size = new Size(153, 23);
+            buttonRevokeUserInfo.TabIndex = 6;
+            buttonRevokeUserInfo.Text = "Kiểm tra quyền của User";
+            buttonRevokeUserInfo.UseVisualStyleBackColor = true;
+            buttonRevokeUserInfo.Click += buttonRevokeUserInfo_Click;
+            // 
+            // textBoxRevokeUserInfo
+            // 
+            textBoxRevokeUserInfo.Location = new Point(86, 46);
+            textBoxRevokeUserInfo.Name = "textBoxRevokeUserInfo";
+            textBoxRevokeUserInfo.Size = new Size(150, 23);
+            textBoxRevokeUserInfo.TabIndex = 5;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(6, 75);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowTemplate.Height = 25;
+            dataGridView2.Size = new Size(516, 282);
+            dataGridView2.TabIndex = 4;
             // 
             // panel7
             // 
@@ -1376,6 +1473,9 @@
             // 
             // tabPageGrantRole
             // 
+            tabPageGrantRole.Controls.Add(buttonRoleInfo);
+            tabPageGrantRole.Controls.Add(textBoxRoleInfo);
+            tabPageGrantRole.Controls.Add(dataGridView3);
             tabPageGrantRole.Controls.Add(panel8);
             tabPageGrantRole.Location = new Point(4, 24);
             tabPageGrantRole.Name = "tabPageGrantRole";
@@ -1383,6 +1483,32 @@
             tabPageGrantRole.TabIndex = 3;
             tabPageGrantRole.Text = "Cấp quyền Role";
             tabPageGrantRole.UseVisualStyleBackColor = true;
+            // 
+            // buttonRoleInfo
+            // 
+            buttonRoleInfo.Location = new Point(278, 37);
+            buttonRoleInfo.Name = "buttonRoleInfo";
+            buttonRoleInfo.Size = new Size(153, 23);
+            buttonRoleInfo.TabIndex = 9;
+            buttonRoleInfo.Text = "Kiểm tra quyền của Role";
+            buttonRoleInfo.UseVisualStyleBackColor = true;
+            buttonRoleInfo.Click += buttonRoleInfo_Click;
+            // 
+            // textBoxRoleInfo
+            // 
+            textBoxRoleInfo.Location = new Point(92, 37);
+            textBoxRoleInfo.Name = "textBoxRoleInfo";
+            textBoxRoleInfo.Size = new Size(150, 23);
+            textBoxRoleInfo.TabIndex = 8;
+            // 
+            // dataGridView3
+            // 
+            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView3.Location = new Point(12, 66);
+            dataGridView3.Name = "dataGridView3";
+            dataGridView3.RowTemplate.Height = 25;
+            dataGridView3.Size = new Size(516, 282);
+            dataGridView3.TabIndex = 7;
             // 
             // panel8
             // 
@@ -1498,6 +1624,9 @@
             // 
             // tabPageRevokeRole
             // 
+            tabPageRevokeRole.Controls.Add(buttonRoleInfoRevoke);
+            tabPageRevokeRole.Controls.Add(textBoxRoleInfoRevoke);
+            tabPageRevokeRole.Controls.Add(dataGridView4);
             tabPageRevokeRole.Controls.Add(panel9);
             tabPageRevokeRole.Location = new Point(4, 24);
             tabPageRevokeRole.Name = "tabPageRevokeRole";
@@ -1505,6 +1634,32 @@
             tabPageRevokeRole.TabIndex = 4;
             tabPageRevokeRole.Text = "Thu hồi quyền Role";
             tabPageRevokeRole.UseVisualStyleBackColor = true;
+            // 
+            // buttonRoleInfoRevoke
+            // 
+            buttonRoleInfoRevoke.Location = new Point(269, 37);
+            buttonRoleInfoRevoke.Name = "buttonRoleInfoRevoke";
+            buttonRoleInfoRevoke.Size = new Size(153, 23);
+            buttonRoleInfoRevoke.TabIndex = 12;
+            buttonRoleInfoRevoke.Text = "Kiểm tra quyền của Role";
+            buttonRoleInfoRevoke.UseVisualStyleBackColor = true;
+            buttonRoleInfoRevoke.Click += buttonRoleInfoRevoke_Click;
+            // 
+            // textBoxRoleInfoRevoke
+            // 
+            textBoxRoleInfoRevoke.Location = new Point(83, 37);
+            textBoxRoleInfoRevoke.Name = "textBoxRoleInfoRevoke";
+            textBoxRoleInfoRevoke.Size = new Size(150, 23);
+            textBoxRoleInfoRevoke.TabIndex = 11;
+            // 
+            // dataGridView4
+            // 
+            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView4.Location = new Point(3, 66);
+            dataGridView4.Name = "dataGridView4";
+            dataGridView4.RowTemplate.Height = 25;
+            dataGridView4.Size = new Size(516, 282);
+            dataGridView4.TabIndex = 10;
             // 
             // panel9
             // 
@@ -1627,6 +1782,14 @@
             tabPageEditRole.Text = "Chỉnh sửa quyền Role";
             tabPageEditRole.UseVisualStyleBackColor = true;
             // 
+            // SearchByRole
+            // 
+            SearchByRole.Location = new Point(149, 9);
+            SearchByRole.Name = "SearchByRole";
+            SearchByRole.Size = new Size(178, 23);
+            SearchByRole.TabIndex = 3;
+            SearchByRole.TextChanged += SearchByRole_TextChanged;
+            // 
             // HomePageForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1642,8 +1805,10 @@
             tabPage2.ResumeLayout(false);
             tabControlPrivileges.ResumeLayout(false);
             tabPageUser.ResumeLayout(false);
+            tabPageUser.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPrivilUser).EndInit();
             tabPageRole.ResumeLayout(false);
+            tabPageRole.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRoles).EndInit();
             tabPage3.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
@@ -1663,9 +1828,13 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             tabPageGrantUser.ResumeLayout(false);
+            tabPageGrantUser.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             tabPageRevokeUser.ResumeLayout(false);
+            tabPageRevokeUser.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             tabPage4.ResumeLayout(false);
@@ -1681,9 +1850,13 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             tabPageGrantRole.ResumeLayout(false);
+            tabPageGrantRole.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             tabPageRevokeRole.ResumeLayout(false);
+            tabPageRevokeRole.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             ResumeLayout(false);
@@ -1828,5 +2001,20 @@
         private Label label37;
         private ComboBox comboBoxRolesRevoke;
         private Label label38;
+        private TextBox SearchByUserName;
+        private Label label39;
+        private TextBox textBoxGrantUserInfo;
+        private DataGridView dataGridView1;
+        private Button buttonGrantUserInfo;
+        private Button buttonRevokeUserInfo;
+        private TextBox textBoxRevokeUserInfo;
+        private DataGridView dataGridView2;
+        private Button buttonRoleInfo;
+        private TextBox textBoxRoleInfo;
+        private DataGridView dataGridView3;
+        private Button buttonRoleInfoRevoke;
+        private TextBox textBoxRoleInfoRevoke;
+        private DataGridView dataGridView4;
+        private TextBox SearchByRole;
     }
 }
