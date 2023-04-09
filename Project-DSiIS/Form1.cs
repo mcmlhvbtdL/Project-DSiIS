@@ -16,7 +16,6 @@ namespace Project_DSiIS
             //Tạo kết nối với Oracle Database
             string baseConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=XEPDB1)));";
             string connectionString = $"{baseConnectionString} User Id={textBoxUserName.Text};Password={textBoxPassword.Text};DBA Privilege=SYSDBA;";
-
             OracleConnection conn = new OracleConnection(connectionString);
 
             try

@@ -41,6 +41,7 @@
             buttonPrivilUser = new Button();
             dataGridViewPrivilUser = new DataGridView();
             tabPageRole = new TabPage();
+            buttonPrivilRole = new Button();
             dataGridViewRoles = new DataGridView();
             tabPage3 = new TabPage();
             tabControl1 = new TabControl();
@@ -77,7 +78,27 @@
             textBoxDropUser = new TextBox();
             labelDropUser = new Label();
             tabPageUpdateUser = new TabPage();
+            panel5 = new Panel();
+            textBoxEditUserConfirmPassword = new TextBox();
+            label15 = new Label();
+            buttonEditUserPassword = new Button();
+            textboxEditUserPassword = new TextBox();
+            label16 = new Label();
+            label17 = new Label();
+            textBoxEditUserUsername = new TextBox();
+            label18 = new Label();
             tabPageGrantUser = new TabPage();
+            panel6 = new Panel();
+            buttonGrantUser = new Button();
+            checkBoxWithGrantOption = new CheckBox();
+            comboBoxTable = new ComboBox();
+            label22 = new Label();
+            comboBoxSystemPrivileges = new ComboBox();
+            comboBoxObjectPrivileges = new ComboBox();
+            label21 = new Label();
+            label20 = new Label();
+            comboBoxUsers = new ComboBox();
+            label19 = new Label();
             tabPageRevokeUser = new TabPage();
             tabPageEditUser = new TabPage();
             tabPage4 = new TabPage();
@@ -129,6 +150,10 @@
             tabPageDeleteUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewListUser).BeginInit();
             panelRemoveUser.SuspendLayout();
+            tabPageUpdateUser.SuspendLayout();
+            panel5.SuspendLayout();
+            tabPageGrantUser.SuspendLayout();
+            panel6.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPageCreateRole.SuspendLayout();
@@ -258,6 +283,7 @@
             buttonPrivilUser.TabIndex = 1;
             buttonPrivilUser.Text = "Xem quyền các User";
             buttonPrivilUser.UseVisualStyleBackColor = true;
+            buttonPrivilUser.Click += buttonPrivilUser_Click;
             // 
             // dataGridViewPrivilUser
             // 
@@ -272,6 +298,7 @@
             // 
             // tabPageRole
             // 
+            tabPageRole.Controls.Add(buttonPrivilRole);
             tabPageRole.Controls.Add(dataGridViewRoles);
             tabPageRole.Location = new Point(4, 24);
             tabPageRole.Margin = new Padding(2);
@@ -281,6 +308,16 @@
             tabPageRole.TabIndex = 1;
             tabPageRole.Text = "Theo Role";
             tabPageRole.UseVisualStyleBackColor = true;
+            // 
+            // buttonPrivilRole
+            // 
+            buttonPrivilRole.Location = new Point(5, 5);
+            buttonPrivilRole.Name = "buttonPrivilRole";
+            buttonPrivilRole.Size = new Size(129, 28);
+            buttonPrivilRole.TabIndex = 2;
+            buttonPrivilRole.Text = "Xem quyền các Role";
+            buttonPrivilRole.UseVisualStyleBackColor = true;
+            buttonPrivilRole.Click += buttonPrivilRole_Click;
             // 
             // dataGridViewRoles
             // 
@@ -652,6 +689,7 @@
             // 
             // tabPageUpdateUser
             // 
+            tabPageUpdateUser.Controls.Add(panel5);
             tabPageUpdateUser.Location = new Point(4, 24);
             tabPageUpdateUser.Name = "tabPageUpdateUser";
             tabPageUpdateUser.Size = new Size(921, 366);
@@ -659,14 +697,217 @@
             tabPageUpdateUser.Text = "Sửa User";
             tabPageUpdateUser.UseVisualStyleBackColor = true;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(textBoxEditUserConfirmPassword);
+            panel5.Controls.Add(label15);
+            panel5.Controls.Add(buttonEditUserPassword);
+            panel5.Controls.Add(textboxEditUserPassword);
+            panel5.Controls.Add(label16);
+            panel5.Controls.Add(label17);
+            panel5.Controls.Add(textBoxEditUserUsername);
+            panel5.Controls.Add(label18);
+            panel5.Dock = DockStyle.Right;
+            panel5.Location = new Point(613, 0);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(308, 366);
+            panel5.TabIndex = 8;
+            // 
+            // textBoxEditUserConfirmPassword
+            // 
+            textBoxEditUserConfirmPassword.Location = new Point(122, 149);
+            textBoxEditUserConfirmPassword.Name = "textBoxEditUserConfirmPassword";
+            textBoxEditUserConfirmPassword.Size = new Size(166, 23);
+            textBoxEditUserConfirmPassword.TabIndex = 3;
+            textBoxEditUserConfirmPassword.UseSystemPasswordChar = true;
+            // 
+            // label15
+            // 
+            label15.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Location = new Point(19, 149);
+            label15.Name = "label15";
+            label15.Size = new Size(70, 68);
+            label15.TabIndex = 7;
+            label15.Text = "Confirm Password";
+            // 
+            // buttonEditUserPassword
+            // 
+            buttonEditUserPassword.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonEditUserPassword.Location = new Point(140, 231);
+            buttonEditUserPassword.Name = "buttonEditUserPassword";
+            buttonEditUserPassword.Size = new Size(123, 36);
+            buttonEditUserPassword.TabIndex = 5;
+            buttonEditUserPassword.Text = "Chỉnh sửa";
+            buttonEditUserPassword.UseVisualStyleBackColor = true;
+            buttonEditUserPassword.Click += buttonEditUserPassword_Click;
+            // 
+            // textboxEditUserPassword
+            // 
+            textboxEditUserPassword.Location = new Point(122, 113);
+            textboxEditUserPassword.Name = "textboxEditUserPassword";
+            textboxEditUserPassword.Size = new Size(166, 23);
+            textboxEditUserPassword.TabIndex = 2;
+            textboxEditUserPassword.UseSystemPasswordChar = true;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Location = new Point(12, 116);
+            label16.Name = "label16";
+            label16.Size = new Size(104, 20);
+            label16.TabIndex = 3;
+            label16.Text = "New Password";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label17.ForeColor = SystemColors.MenuHighlight;
+            label17.Location = new Point(63, 11);
+            label17.Name = "label17";
+            label17.Size = new Size(225, 32);
+            label17.TabIndex = 2;
+            label17.Text = "Sửa mật khẩu user";
+            // 
+            // textBoxEditUserUsername
+            // 
+            textBoxEditUserUsername.Location = new Point(122, 74);
+            textBoxEditUserUsername.Name = "textBoxEditUserUsername";
+            textBoxEditUserUsername.Size = new Size(166, 23);
+            textBoxEditUserUsername.TabIndex = 1;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Location = new Point(14, 77);
+            label18.Name = "label18";
+            label18.Size = new Size(75, 20);
+            label18.TabIndex = 0;
+            label18.Text = "Username";
+            // 
             // tabPageGrantUser
             // 
+            tabPageGrantUser.Controls.Add(panel6);
             tabPageGrantUser.Location = new Point(4, 24);
             tabPageGrantUser.Name = "tabPageGrantUser";
             tabPageGrantUser.Size = new Size(921, 366);
             tabPageGrantUser.TabIndex = 3;
             tabPageGrantUser.Text = "Cấp quyền cho User";
             tabPageGrantUser.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(buttonGrantUser);
+            panel6.Controls.Add(checkBoxWithGrantOption);
+            panel6.Controls.Add(comboBoxTable);
+            panel6.Controls.Add(label22);
+            panel6.Controls.Add(comboBoxSystemPrivileges);
+            panel6.Controls.Add(comboBoxObjectPrivileges);
+            panel6.Controls.Add(label21);
+            panel6.Controls.Add(label20);
+            panel6.Controls.Add(comboBoxUsers);
+            panel6.Controls.Add(label19);
+            panel6.Location = new Point(525, 4);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(393, 360);
+            panel6.TabIndex = 0;
+            // 
+            // buttonGrantUser
+            // 
+            buttonGrantUser.Location = new Point(197, 278);
+            buttonGrantUser.Name = "buttonGrantUser";
+            buttonGrantUser.Size = new Size(108, 41);
+            buttonGrantUser.TabIndex = 7;
+            buttonGrantUser.Text = "Cấp quyền";
+            buttonGrantUser.UseVisualStyleBackColor = true;
+            buttonGrantUser.Click += buttonGrantUser_Click;
+            // 
+            // checkBoxWithGrantOption
+            // 
+            checkBoxWithGrantOption.AutoSize = true;
+            checkBoxWithGrantOption.Location = new Point(163, 253);
+            checkBoxWithGrantOption.Name = "checkBoxWithGrantOption";
+            checkBoxWithGrantOption.Size = new Size(142, 19);
+            checkBoxWithGrantOption.TabIndex = 5;
+            checkBoxWithGrantOption.Text = "WITH GRANT OPTION";
+            checkBoxWithGrantOption.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxTable
+            // 
+            comboBoxTable.FormattingEnabled = true;
+            comboBoxTable.Location = new Point(163, 206);
+            comboBoxTable.Name = "comboBoxTable";
+            comboBoxTable.Size = new Size(209, 23);
+            comboBoxTable.TabIndex = 4;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Location = new Point(49, 206);
+            label22.Name = "label22";
+            label22.Size = new Size(55, 25);
+            label22.TabIndex = 6;
+            label22.Text = "Bảng";
+            // 
+            // comboBoxSystemPrivileges
+            // 
+            comboBoxSystemPrivileges.FormattingEnabled = true;
+            comboBoxSystemPrivileges.Items.AddRange(new object[] { "" });
+            comboBoxSystemPrivileges.Location = new Point(163, 165);
+            comboBoxSystemPrivileges.Name = "comboBoxSystemPrivileges";
+            comboBoxSystemPrivileges.Size = new Size(209, 23);
+            comboBoxSystemPrivileges.TabIndex = 3;
+            // 
+            // comboBoxObjectPrivileges
+            // 
+            comboBoxObjectPrivileges.FormattingEnabled = true;
+            comboBoxObjectPrivileges.Items.AddRange(new object[] { "", "SELECT", "INSERT", "UPDATE", "DELETE", "ALTER", "INDEX", "REFERENCES" });
+            comboBoxObjectPrivileges.Location = new Point(163, 109);
+            comboBoxObjectPrivileges.Name = "comboBoxObjectPrivileges";
+            comboBoxObjectPrivileges.Size = new Size(209, 23);
+            comboBoxObjectPrivileges.TabIndex = 2;
+            comboBoxObjectPrivileges.SelectedIndexChanged += comboBoxObjectPrivileges_SelectedIndexChanged;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Location = new Point(0, 163);
+            label21.Name = "label21";
+            label21.Size = new Size(148, 25);
+            label21.TabIndex = 3;
+            label21.Text = "Quyền hệ thống";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label20.Location = new Point(0, 109);
+            label20.Name = "label20";
+            label20.Size = new Size(154, 25);
+            label20.TabIndex = 2;
+            label20.Text = "Quyền trên bảng";
+            // 
+            // comboBoxUsers
+            // 
+            comboBoxUsers.FormattingEnabled = true;
+            comboBoxUsers.Location = new Point(163, 63);
+            comboBoxUsers.Name = "comboBoxUsers";
+            comboBoxUsers.Size = new Size(209, 23);
+            comboBoxUsers.TabIndex = 1;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label19.Location = new Point(49, 61);
+            label19.Name = "label19";
+            label19.Size = new Size(50, 25);
+            label19.TabIndex = 0;
+            label19.Text = "User";
             // 
             // tabPageRevokeUser
             // 
@@ -1025,6 +1266,12 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewListUser).EndInit();
             panelRemoveUser.ResumeLayout(false);
             panelRemoveUser.PerformLayout();
+            tabPageUpdateUser.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            tabPageGrantUser.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             tabPage4.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
             tabPageCreateRole.ResumeLayout(false);
@@ -1124,5 +1371,26 @@
         private Label label13;
         private TextBox textBoxDropRole;
         private Label label14;
+        private Panel panel5;
+        private TextBox textBoxEditUserConfirmPassword;
+        private Label label15;
+        private Button buttonEditUserPassword;
+        private TextBox textboxEditUserPassword;
+        private Label label16;
+        private Label label17;
+        private TextBox textBoxEditUserUsername;
+        private Label label18;
+        private Button buttonPrivilRole;
+        private Panel panel6;
+        private CheckBox checkBoxWithGrantOption;
+        private ComboBox comboBoxTable;
+        private Label label22;
+        private ComboBox comboBoxSystemPrivileges;
+        private ComboBox comboBoxObjectPrivileges;
+        private Label label21;
+        private Label label20;
+        private ComboBox comboBoxUsers;
+        private Label label19;
+        private Button buttonGrantUser;
     }
 }
