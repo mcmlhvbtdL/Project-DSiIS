@@ -79,6 +79,7 @@ namespace Project_DSiIS
             }
         }
 
+        // GRANT/REVOKE USER
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 0)
@@ -135,6 +136,58 @@ namespace Project_DSiIS
                 comboBoxRevokeTable.DisplayMember = "Table_name";
                 comboBoxRevokeTable.DataSource = dataTable3;
                 comboBoxRevokeTable.SelectedIndex = -1;
+            }
+        }
+
+        //ROLES
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl2.SelectedIndex == 3)
+            {
+                //ComboBox Danh sach roel
+                DataTable datatable = _orl.GetUserData("select role from dba_roles");
+                comboBoxRoles.ValueMember = "Role";
+                comboBoxRoles.DisplayMember = "Role";
+                comboBoxRoles.DataSource = datatable;
+                comboBoxRoles.SelectedIndex = -1;
+
+                //ComboxBox quyen he thong
+                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                comboBoxSystemPrivilegesRoles.ValueMember = "Privilege";
+                comboBoxSystemPrivilegesRoles.DisplayMember = "Privilege";
+                comboBoxSystemPrivilegesRoles.DataSource = datatable2;
+                comboBoxSystemPrivilegesRoles.SelectedIndex = -1;
+
+                //ComboBox table
+                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                comboBoxTableRoles.ValueMember = "Table Name";
+                comboBoxTableRoles.DisplayMember = "Table_name";
+                comboBoxTableRoles.DataSource = dataTable3;
+                comboBoxTableRoles.SelectedIndex = -1;
+
+            }
+            else if (tabControl2.SelectedIndex == 4)
+            {
+                //ComboBox Danh sach roel
+                DataTable datatable = _orl.GetUserData("select role from dba_roles");
+                comboBoxRolesRevoke.ValueMember = "Role";
+                comboBoxRolesRevoke.DisplayMember = "Role";
+                comboBoxRolesRevoke.DataSource = datatable;
+                comboBoxRolesRevoke.SelectedIndex = -1;
+
+                //ComboxBox quyen he thong
+                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                comboBoxSystemPrivilegesRolesRevoke.ValueMember = "Privilege";
+                comboBoxSystemPrivilegesRolesRevoke.DisplayMember = "Privilege";
+                comboBoxSystemPrivilegesRolesRevoke.DataSource = datatable2;
+                comboBoxSystemPrivilegesRolesRevoke.SelectedIndex = -1;
+
+                //ComboBox table
+                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                comboBoxTableRolesRevoke.ValueMember = "Table Name";
+                comboBoxTableRolesRevoke.DisplayMember = "Table_name";
+                comboBoxTableRolesRevoke.DataSource = dataTable3;
+                comboBoxTableRolesRevoke.SelectedIndex = -1;
             }
         }
 
@@ -431,7 +484,6 @@ namespace Project_DSiIS
             Dictionary<string, object> parameterDict = null;
             if (!String.IsNullOrWhiteSpace(user) && !String.IsNullOrWhiteSpace(objPrivil) && String.IsNullOrEmpty(sysPrivil))
             {
-                MessageBox.Show($"{user},{objPrivil},{sysPrivil}");
                 parameterDict = new Dictionary<string, object>
                 {
                     {"p_user_name", user },
@@ -487,7 +539,6 @@ namespace Project_DSiIS
             Dictionary<string, object> parameterDict = null;
             if (!String.IsNullOrWhiteSpace(user) && !String.IsNullOrWhiteSpace(objPrivil) && String.IsNullOrEmpty(sysPrivil))
             {
-                MessageBox.Show($"{user},{objPrivil},{sysPrivil}");
                 parameterDict = new Dictionary<string, object>
                 {
                     {"p_user_name", user },
@@ -527,6 +578,84 @@ namespace Project_DSiIS
             else
             {
                 comboBoxRevokeSystemPrivileges.Enabled = true;
+            }
+        }
+
+        private void buttonGrantRole_Click(object sender, EventArgs e)
+        {
+            string rolename = comboBoxRoles.Text;
+            string objPrivil = comboBoxObjectPrivilegesRoles.Text;
+            string sysPrivil = comboBoxSystemPrivilegesRoles.Text;
+            string objName = comboBoxTableRoles.Text;
+            Dictionary<string, object> parameterDict = null;
+            if (!String.IsNullOrWhiteSpace(rolename) && !String.IsNullOrWhiteSpace(objPrivil) && String.IsNullOrEmpty(sysPrivil))
+            {
+                parameterDict = new Dictionary<string, object>
+                {
+                    {"p_role_name", rolename },
+                    {"p_permission", objPrivil },
+                    {"p_object_name", objName},
+                    {"p_is_system_privilege", 0 }
+                };
+            }
+            else if (!String.IsNullOrWhiteSpace(rolename) && String.IsNullOrWhiteSpace(objPrivil) && !String.IsNullOrEmpty(sysPrivil))
+            {
+                parameterDict = new Dictionary<string, object>
+                {
+                    {"p_role_name", rolename },
+                    {"p_permission", sysPrivil },
+                    {"p_object_name", objName},
+                    {"p_is_system_privilege", 1 }
+
+                };
+            }
+            try
+            {
+                _orl.ExecuteProcedureWithNoQuery(OracleSQLHandle.SP.GrantPremissionToRole, parameterDict);
+                MessageBox.Show($"Gán quyền thành công cho Role ", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Có lỗi khi thực hiện việc gán quyền cho Role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonGrantRoleRevoke_Click(object sender, EventArgs e)
+        {
+            string rolename = comboBoxRolesRevoke.Text;
+            string objPrivil = comboBoxObjectPrivilegesRolesRevoke.Text;
+            string sysPrivil = comboBoxSystemPrivilegesRolesRevoke.Text;
+            string objName = comboBoxTableRolesRevoke.Text;
+            Dictionary<string, object> parameterDict = null;
+            if (!String.IsNullOrWhiteSpace(rolename) && !String.IsNullOrWhiteSpace(objPrivil) && String.IsNullOrEmpty(sysPrivil))
+            {
+                parameterDict = new Dictionary<string, object>
+                {
+                    {"p_role_name", rolename },
+                    {"p_permission", objPrivil },
+                    {"p_object_name", objName},
+                    {"p_is_system_privilege", 0 }
+                };
+            }
+            else if (!String.IsNullOrWhiteSpace(rolename) && String.IsNullOrWhiteSpace(objPrivil) && !String.IsNullOrEmpty(sysPrivil))
+            {
+                parameterDict = new Dictionary<string, object>
+                {
+                    {"p_role_name", rolename },
+                    {"p_permission", sysPrivil },
+                    {"p_object_name", objName},
+                    {"p_is_system_privilege", 1 }
+
+                };
+            }
+            try
+            {
+                _orl.ExecuteProcedureWithNoQuery(OracleSQLHandle.SP.RevokePremissionFromRole, parameterDict);
+                MessageBox.Show($"Thu hồi quyền thành công từ Role ", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Có lỗi khi thực hiện việcThu hồi quyền từ Role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

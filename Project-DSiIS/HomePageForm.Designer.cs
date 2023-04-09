@@ -141,7 +141,29 @@
             label14 = new Label();
             tabPageUpdateRole = new TabPage();
             tabPageGrantRole = new TabPage();
+            panel8 = new Panel();
+            label29 = new Label();
+            buttonGrantRole = new Button();
+            comboBoxTableRoles = new ComboBox();
+            label30 = new Label();
+            comboBoxSystemPrivilegesRoles = new ComboBox();
+            comboBoxObjectPrivilegesRoles = new ComboBox();
+            label31 = new Label();
+            label32 = new Label();
+            comboBoxRoles = new ComboBox();
+            label33 = new Label();
             tabPageRevokeRole = new TabPage();
+            panel9 = new Panel();
+            label34 = new Label();
+            buttonGrantRoleRevoke = new Button();
+            comboBoxTableRolesRevoke = new ComboBox();
+            label35 = new Label();
+            comboBoxSystemPrivilegesRolesRevoke = new ComboBox();
+            comboBoxObjectPrivilegesRolesRevoke = new ComboBox();
+            label36 = new Label();
+            label37 = new Label();
+            comboBoxRolesRevoke = new ComboBox();
+            label38 = new Label();
             tabPageEditRole = new TabPage();
             tabControlHomePage.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -176,6 +198,10 @@
             tabPageDeleteRole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewDropRole).BeginInit();
             panel4.SuspendLayout();
+            tabPageGrantRole.SuspendLayout();
+            panel8.SuspendLayout();
+            tabPageRevokeRole.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlHomePage
@@ -1090,6 +1116,7 @@
             tabControl2.SelectedIndex = 0;
             tabControl2.Size = new Size(929, 394);
             tabControl2.TabIndex = 0;
+            tabControl2.SelectedIndexChanged += tabControl2_SelectedIndexChanged;
             // 
             // tabPageCreateRole
             // 
@@ -1349,6 +1376,7 @@
             // 
             // tabPageGrantRole
             // 
+            tabPageGrantRole.Controls.Add(panel8);
             tabPageGrantRole.Location = new Point(4, 24);
             tabPageGrantRole.Name = "tabPageGrantRole";
             tabPageGrantRole.Size = new Size(921, 366);
@@ -1356,14 +1384,239 @@
             tabPageGrantRole.Text = "Cấp quyền Role";
             tabPageGrantRole.UseVisualStyleBackColor = true;
             // 
+            // panel8
+            // 
+            panel8.Controls.Add(label29);
+            panel8.Controls.Add(buttonGrantRole);
+            panel8.Controls.Add(comboBoxTableRoles);
+            panel8.Controls.Add(label30);
+            panel8.Controls.Add(comboBoxSystemPrivilegesRoles);
+            panel8.Controls.Add(comboBoxObjectPrivilegesRoles);
+            panel8.Controls.Add(label31);
+            panel8.Controls.Add(label32);
+            panel8.Controls.Add(comboBoxRoles);
+            panel8.Controls.Add(label33);
+            panel8.Location = new Point(534, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(387, 360);
+            panel8.TabIndex = 1;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label29.ForeColor = SystemColors.MenuHighlight;
+            label29.Location = new Point(11, 12);
+            label29.Name = "label29";
+            label29.Size = new Size(357, 32);
+            label29.TabIndex = 8;
+            label29.Text = "Phân quyền (GRANT) cho role";
+            // 
+            // buttonGrantRole
+            // 
+            buttonGrantRole.Location = new Point(197, 278);
+            buttonGrantRole.Name = "buttonGrantRole";
+            buttonGrantRole.Size = new Size(108, 41);
+            buttonGrantRole.TabIndex = 7;
+            buttonGrantRole.Text = "Cấp quyền";
+            buttonGrantRole.UseVisualStyleBackColor = true;
+            buttonGrantRole.Click += buttonGrantRole_Click;
+            // 
+            // comboBoxTableRoles
+            // 
+            comboBoxTableRoles.FormattingEnabled = true;
+            comboBoxTableRoles.Location = new Point(163, 206);
+            comboBoxTableRoles.Name = "comboBoxTableRoles";
+            comboBoxTableRoles.Size = new Size(209, 23);
+            comboBoxTableRoles.TabIndex = 4;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label30.Location = new Point(49, 206);
+            label30.Name = "label30";
+            label30.Size = new Size(55, 25);
+            label30.TabIndex = 6;
+            label30.Text = "Bảng";
+            // 
+            // comboBoxSystemPrivilegesRoles
+            // 
+            comboBoxSystemPrivilegesRoles.FormattingEnabled = true;
+            comboBoxSystemPrivilegesRoles.Items.AddRange(new object[] { "" });
+            comboBoxSystemPrivilegesRoles.Location = new Point(163, 165);
+            comboBoxSystemPrivilegesRoles.Name = "comboBoxSystemPrivilegesRoles";
+            comboBoxSystemPrivilegesRoles.Size = new Size(209, 23);
+            comboBoxSystemPrivilegesRoles.TabIndex = 3;
+            // 
+            // comboBoxObjectPrivilegesRoles
+            // 
+            comboBoxObjectPrivilegesRoles.FormattingEnabled = true;
+            comboBoxObjectPrivilegesRoles.Items.AddRange(new object[] { "", "SELECT", "INSERT", "UPDATE", "DELETE", "ALTER", "INDEX", "REFERENCES" });
+            comboBoxObjectPrivilegesRoles.Location = new Point(163, 109);
+            comboBoxObjectPrivilegesRoles.Name = "comboBoxObjectPrivilegesRoles";
+            comboBoxObjectPrivilegesRoles.Size = new Size(209, 23);
+            comboBoxObjectPrivilegesRoles.TabIndex = 2;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label31.Location = new Point(0, 163);
+            label31.Name = "label31";
+            label31.Size = new Size(148, 25);
+            label31.TabIndex = 3;
+            label31.Text = "Quyền hệ thống";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label32.Location = new Point(0, 109);
+            label32.Name = "label32";
+            label32.Size = new Size(154, 25);
+            label32.TabIndex = 2;
+            label32.Text = "Quyền trên bảng";
+            // 
+            // comboBoxRoles
+            // 
+            comboBoxRoles.FormattingEnabled = true;
+            comboBoxRoles.Location = new Point(163, 63);
+            comboBoxRoles.Name = "comboBoxRoles";
+            comboBoxRoles.Size = new Size(209, 23);
+            comboBoxRoles.TabIndex = 1;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label33.Location = new Point(29, 63);
+            label33.Name = "label33";
+            label33.Size = new Size(100, 25);
+            label33.TabIndex = 0;
+            label33.Text = "Role name";
+            // 
             // tabPageRevokeRole
             // 
+            tabPageRevokeRole.Controls.Add(panel9);
             tabPageRevokeRole.Location = new Point(4, 24);
             tabPageRevokeRole.Name = "tabPageRevokeRole";
             tabPageRevokeRole.Size = new Size(921, 366);
             tabPageRevokeRole.TabIndex = 4;
             tabPageRevokeRole.Text = "Thu hồi quyền Role";
             tabPageRevokeRole.UseVisualStyleBackColor = true;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(label34);
+            panel9.Controls.Add(buttonGrantRoleRevoke);
+            panel9.Controls.Add(comboBoxTableRolesRevoke);
+            panel9.Controls.Add(label35);
+            panel9.Controls.Add(comboBoxSystemPrivilegesRolesRevoke);
+            panel9.Controls.Add(comboBoxObjectPrivilegesRolesRevoke);
+            panel9.Controls.Add(label36);
+            panel9.Controls.Add(label37);
+            panel9.Controls.Add(comboBoxRolesRevoke);
+            panel9.Controls.Add(label38);
+            panel9.Location = new Point(525, 3);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(393, 360);
+            panel9.TabIndex = 2;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label34.ForeColor = SystemColors.MenuHighlight;
+            label34.Location = new Point(27, 15);
+            label34.Name = "label34";
+            label34.Size = new Size(342, 30);
+            label34.TabIndex = 8;
+            label34.Text = "Thu hồi (REVOKE) quyền của role";
+            // 
+            // buttonGrantRoleRevoke
+            // 
+            buttonGrantRoleRevoke.Location = new Point(197, 278);
+            buttonGrantRoleRevoke.Name = "buttonGrantRoleRevoke";
+            buttonGrantRoleRevoke.Size = new Size(108, 41);
+            buttonGrantRoleRevoke.TabIndex = 7;
+            buttonGrantRoleRevoke.Text = "REVOKE";
+            buttonGrantRoleRevoke.UseVisualStyleBackColor = true;
+            buttonGrantRoleRevoke.Click += buttonGrantRoleRevoke_Click;
+            // 
+            // comboBoxTableRolesRevoke
+            // 
+            comboBoxTableRolesRevoke.FormattingEnabled = true;
+            comboBoxTableRolesRevoke.Location = new Point(163, 206);
+            comboBoxTableRolesRevoke.Name = "comboBoxTableRolesRevoke";
+            comboBoxTableRolesRevoke.Size = new Size(209, 23);
+            comboBoxTableRolesRevoke.TabIndex = 4;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label35.Location = new Point(49, 206);
+            label35.Name = "label35";
+            label35.Size = new Size(55, 25);
+            label35.TabIndex = 6;
+            label35.Text = "Bảng";
+            // 
+            // comboBoxSystemPrivilegesRolesRevoke
+            // 
+            comboBoxSystemPrivilegesRolesRevoke.FormattingEnabled = true;
+            comboBoxSystemPrivilegesRolesRevoke.Items.AddRange(new object[] { "" });
+            comboBoxSystemPrivilegesRolesRevoke.Location = new Point(163, 165);
+            comboBoxSystemPrivilegesRolesRevoke.Name = "comboBoxSystemPrivilegesRolesRevoke";
+            comboBoxSystemPrivilegesRolesRevoke.Size = new Size(209, 23);
+            comboBoxSystemPrivilegesRolesRevoke.TabIndex = 3;
+            // 
+            // comboBoxObjectPrivilegesRolesRevoke
+            // 
+            comboBoxObjectPrivilegesRolesRevoke.FormattingEnabled = true;
+            comboBoxObjectPrivilegesRolesRevoke.Items.AddRange(new object[] { "", "SELECT", "INSERT", "UPDATE", "DELETE", "ALTER", "INDEX", "REFERENCES" });
+            comboBoxObjectPrivilegesRolesRevoke.Location = new Point(163, 109);
+            comboBoxObjectPrivilegesRolesRevoke.Name = "comboBoxObjectPrivilegesRolesRevoke";
+            comboBoxObjectPrivilegesRolesRevoke.Size = new Size(209, 23);
+            comboBoxObjectPrivilegesRolesRevoke.TabIndex = 2;
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label36.Location = new Point(0, 163);
+            label36.Name = "label36";
+            label36.Size = new Size(148, 25);
+            label36.TabIndex = 3;
+            label36.Text = "Quyền hệ thống";
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label37.Location = new Point(0, 109);
+            label37.Name = "label37";
+            label37.Size = new Size(154, 25);
+            label37.TabIndex = 2;
+            label37.Text = "Quyền trên bảng";
+            // 
+            // comboBoxRolesRevoke
+            // 
+            comboBoxRolesRevoke.FormattingEnabled = true;
+            comboBoxRolesRevoke.Location = new Point(163, 63);
+            comboBoxRolesRevoke.Name = "comboBoxRolesRevoke";
+            comboBoxRolesRevoke.Size = new Size(209, 23);
+            comboBoxRolesRevoke.TabIndex = 1;
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label38.Location = new Point(27, 63);
+            label38.Name = "label38";
+            label38.Size = new Size(100, 25);
+            label38.TabIndex = 0;
+            label38.Text = "Role name";
             // 
             // tabPageEditRole
             // 
@@ -1427,6 +1680,12 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewDropRole).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            tabPageGrantRole.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            tabPageRevokeRole.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1547,5 +1806,27 @@
         private Label label27;
         private ComboBox comboBoxRevokeUsers;
         private Label label28;
+        private Panel panel8;
+        private Label label29;
+        private Button buttonGrantRole;
+        private ComboBox comboBoxTableRoles;
+        private Label label30;
+        private ComboBox comboBoxSystemPrivilegesRoles;
+        private ComboBox comboBoxObjectPrivilegesRoles;
+        private Label label31;
+        private Label label32;
+        private ComboBox comboBoxRoles;
+        private Label label33;
+        private Panel panel9;
+        private Label label34;
+        private Button buttonGrantRoleRevoke;
+        private ComboBox comboBoxTableRolesRevoke;
+        private Label label35;
+        private ComboBox comboBoxSystemPrivilegesRolesRevoke;
+        private ComboBox comboBoxObjectPrivilegesRolesRevoke;
+        private Label label36;
+        private Label label37;
+        private ComboBox comboBoxRolesRevoke;
+        private Label label38;
     }
 }
