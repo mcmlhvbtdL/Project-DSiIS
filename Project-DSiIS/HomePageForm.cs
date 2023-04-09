@@ -24,6 +24,8 @@ namespace Project_DSiIS
             InitializeComponent();
             _conn = conn;
             _orl = new OracleSQLHandle(conn);
+
+
             InitializeCreateUserDataGridView();
             tabControlHomePage_SelectedIndexChanged(tabControlHomePage, EventArgs.Empty);
             dataGridViewListUser.CellClick -= dataGridViewListUser_CellClick;
@@ -31,10 +33,6 @@ namespace Project_DSiIS
 
         }
 
-
-        /*
-         * Cac phan lien quan den giao dien
-        */
         // Xử lý TabPage
         private void tabControlHomePage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -67,13 +65,12 @@ namespace Project_DSiIS
             // Xử lý TabPage Xem thông tin về quyền
             else if (tabControlHomePage.SelectedIndex == 1)
             {
-                //TODO: 
+
             }
             // Xử lý TabPage về User
             else if (tabControlHomePage.SelectedIndex == 2)
             {
                 buttonListUserCreateUser_Click(sender, e);
-                buttonListUser_Click(sender, e);
             }
             // Xử lý TabPage về Role
             else if (tabControlHomePage.SelectedIndex == 3)
@@ -94,6 +91,7 @@ namespace Project_DSiIS
             }
             else if (tabControl1.SelectedIndex == 3)
             {
+
                 //ComboBox Danh sach user
                 DataTable datatable = _orl.GetUserData("select * from all_users ORDER BY CREATED DESC");
                 comboBoxUsers.ValueMember = "User";
@@ -114,6 +112,29 @@ namespace Project_DSiIS
                 comboBoxTable.DisplayMember = "Table_name";
                 comboBoxTable.DataSource = dataTable3;
                 comboBoxTable.SelectedIndex = -1;
+            }
+            else if (tabControl1.SelectedIndex == 4)
+            {
+                //ComboBox Danh sach user
+                DataTable datatable = _orl.GetUserData("select * from all_users ORDER BY CREATED DESC");
+                comboBoxRevokeUsers.ValueMember = "User";
+                comboBoxRevokeUsers.DisplayMember = "UserName";
+                comboBoxRevokeUsers.DataSource = datatable;
+                comboBoxRevokeUsers.SelectedIndex = -1;
+
+                //ComboBox Quyen He Thong
+                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                comboBoxRevokeSystemPrivileges.ValueMember = "Privilege";
+                comboBoxRevokeSystemPrivileges.DisplayMember = "Privilege";
+                comboBoxRevokeSystemPrivileges.DataSource = datatable2;
+                comboBoxRevokeSystemPrivileges.SelectedIndex = -1;
+
+                //ComboBox Table 
+                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                comboBoxRevokeTable.ValueMember = "Table Name";
+                comboBoxRevokeTable.DisplayMember = "Table_name";
+                comboBoxRevokeTable.DataSource = dataTable3;
+                comboBoxRevokeTable.SelectedIndex = -1;
             }
         }
 
@@ -455,6 +476,58 @@ namespace Project_DSiIS
                 comboBoxSystemPrivileges.Enabled = true;
             }
 
+        }
+
+        private void buttonRevokeUser_Click(object sender, EventArgs e)
+        {
+            string user = comboBoxRevokeUsers.Text;
+            string objPrivil = comboBoxRevokeObjectPrivileges.Text;
+            string sysPrivil = comboBoxRevokeSystemPrivileges.Text;
+            string objName = comboBoxRevokeTable.Text;
+            Dictionary<string, object> parameterDict = null;
+            if (!String.IsNullOrWhiteSpace(user) && !String.IsNullOrWhiteSpace(objPrivil) && String.IsNullOrEmpty(sysPrivil))
+            {
+                MessageBox.Show($"{user},{objPrivil},{sysPrivil}");
+                parameterDict = new Dictionary<string, object>
+                {
+                    {"p_user_name", user },
+                    {"p_permission", objPrivil },
+                    {"p_object_name", objName},
+                    {"p_is_system_privilege", 0 }
+                };
+            }
+            else if (!String.IsNullOrWhiteSpace(user) && String.IsNullOrWhiteSpace(objPrivil) && !String.IsNullOrEmpty(sysPrivil))
+            {
+                parameterDict = new Dictionary<string, object>
+                {
+                    {"p_user_name", user },
+                    {"p_permission", sysPrivil },
+                    {"p_object_name", objName},
+                    {"p_is_system_privilege", 1 }
+
+                };
+            }
+            try
+            {
+                _orl.ExecuteProcedureWithNoQuery(OracleSQLHandle.SP.RevokePremissionFromUser, parameterDict);
+                MessageBox.Show($"Thu hồi quyền thành công ", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show($"Có lỗi khi thực hiện việc thu hồi từ User: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void comboBoxRevokeObjectPrivileges_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(comboBoxRevokeObjectPrivileges.Text))
+            {
+                comboBoxRevokeSystemPrivileges.Enabled = false;
+            }
+            else
+            {
+                comboBoxRevokeSystemPrivileges.Enabled = true;
+            }
         }
     }
 }

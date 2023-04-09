@@ -89,6 +89,7 @@
             label18 = new Label();
             tabPageGrantUser = new TabPage();
             panel6 = new Panel();
+            label23 = new Label();
             buttonGrantUser = new Button();
             checkBoxWithGrantOption = new CheckBox();
             comboBoxTable = new ComboBox();
@@ -100,6 +101,17 @@
             comboBoxUsers = new ComboBox();
             label19 = new Label();
             tabPageRevokeUser = new TabPage();
+            panel7 = new Panel();
+            label24 = new Label();
+            buttonRevokeUser = new Button();
+            comboBoxRevokeTable = new ComboBox();
+            label25 = new Label();
+            comboBoxRevokeSystemPrivileges = new ComboBox();
+            comboBoxRevokeObjectPrivileges = new ComboBox();
+            label26 = new Label();
+            label27 = new Label();
+            comboBoxRevokeUsers = new ComboBox();
+            label28 = new Label();
             tabPageEditUser = new TabPage();
             tabPage4 = new TabPage();
             tabControl2 = new TabControl();
@@ -154,6 +166,8 @@
             panel5.SuspendLayout();
             tabPageGrantUser.SuspendLayout();
             panel6.SuspendLayout();
+            tabPageRevokeUser.SuspendLayout();
+            panel7.SuspendLayout();
             tabPage4.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPageCreateRole.SuspendLayout();
@@ -799,6 +813,7 @@
             // 
             // panel6
             // 
+            panel6.Controls.Add(label23);
             panel6.Controls.Add(buttonGrantUser);
             panel6.Controls.Add(checkBoxWithGrantOption);
             panel6.Controls.Add(comboBoxTable);
@@ -813,6 +828,17 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(393, 360);
             panel6.TabIndex = 0;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label23.ForeColor = SystemColors.MenuHighlight;
+            label23.Location = new Point(11, 12);
+            label23.Name = "label23";
+            label23.Size = new Size(361, 32);
+            label23.TabIndex = 8;
+            label23.Text = "Phân quyền (GRANT) cho user";
             // 
             // buttonGrantUser
             // 
@@ -911,12 +937,126 @@
             // 
             // tabPageRevokeUser
             // 
+            tabPageRevokeUser.Controls.Add(panel7);
             tabPageRevokeUser.Location = new Point(4, 24);
             tabPageRevokeUser.Name = "tabPageRevokeUser";
             tabPageRevokeUser.Size = new Size(921, 366);
             tabPageRevokeUser.TabIndex = 4;
             tabPageRevokeUser.Text = "Thu hồi quyền của User";
             tabPageRevokeUser.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            panel7.Controls.Add(label24);
+            panel7.Controls.Add(buttonRevokeUser);
+            panel7.Controls.Add(comboBoxRevokeTable);
+            panel7.Controls.Add(label25);
+            panel7.Controls.Add(comboBoxRevokeSystemPrivileges);
+            panel7.Controls.Add(comboBoxRevokeObjectPrivileges);
+            panel7.Controls.Add(label26);
+            panel7.Controls.Add(label27);
+            panel7.Controls.Add(comboBoxRevokeUsers);
+            panel7.Controls.Add(label28);
+            panel7.Location = new Point(528, 0);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(393, 360);
+            panel7.TabIndex = 1;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label24.ForeColor = SystemColors.MenuHighlight;
+            label24.Location = new Point(27, 15);
+            label24.Name = "label24";
+            label24.Size = new Size(345, 30);
+            label24.TabIndex = 8;
+            label24.Text = "Thu hồi (REVOKE) quyền của user";
+            // 
+            // buttonRevokeUser
+            // 
+            buttonRevokeUser.Location = new Point(197, 278);
+            buttonRevokeUser.Name = "buttonRevokeUser";
+            buttonRevokeUser.Size = new Size(108, 41);
+            buttonRevokeUser.TabIndex = 7;
+            buttonRevokeUser.Text = "REVOKE";
+            buttonRevokeUser.UseVisualStyleBackColor = true;
+            buttonRevokeUser.Click += buttonRevokeUser_Click;
+            // 
+            // comboBoxRevokeTable
+            // 
+            comboBoxRevokeTable.FormattingEnabled = true;
+            comboBoxRevokeTable.Location = new Point(163, 206);
+            comboBoxRevokeTable.Name = "comboBoxRevokeTable";
+            comboBoxRevokeTable.Size = new Size(209, 23);
+            comboBoxRevokeTable.TabIndex = 4;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label25.Location = new Point(49, 206);
+            label25.Name = "label25";
+            label25.Size = new Size(55, 25);
+            label25.TabIndex = 6;
+            label25.Text = "Bảng";
+            // 
+            // comboBoxRevokeSystemPrivileges
+            // 
+            comboBoxRevokeSystemPrivileges.FormattingEnabled = true;
+            comboBoxRevokeSystemPrivileges.Items.AddRange(new object[] { "" });
+            comboBoxRevokeSystemPrivileges.Location = new Point(163, 165);
+            comboBoxRevokeSystemPrivileges.Name = "comboBoxRevokeSystemPrivileges";
+            comboBoxRevokeSystemPrivileges.Size = new Size(209, 23);
+            comboBoxRevokeSystemPrivileges.TabIndex = 3;
+            // 
+            // comboBoxRevokeObjectPrivileges
+            // 
+            comboBoxRevokeObjectPrivileges.FormattingEnabled = true;
+            comboBoxRevokeObjectPrivileges.Items.AddRange(new object[] { "", "SELECT", "INSERT", "UPDATE", "DELETE", "ALTER", "INDEX", "REFERENCES" });
+            comboBoxRevokeObjectPrivileges.Location = new Point(163, 109);
+            comboBoxRevokeObjectPrivileges.Name = "comboBoxRevokeObjectPrivileges";
+            comboBoxRevokeObjectPrivileges.Size = new Size(209, 23);
+            comboBoxRevokeObjectPrivileges.TabIndex = 2;
+            comboBoxRevokeObjectPrivileges.SelectedIndexChanged += comboBoxRevokeObjectPrivileges_SelectedIndexChanged;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Location = new Point(0, 163);
+            label26.Name = "label26";
+            label26.Size = new Size(148, 25);
+            label26.TabIndex = 3;
+            label26.Text = "Quyền hệ thống";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.Location = new Point(0, 109);
+            label27.Name = "label27";
+            label27.Size = new Size(154, 25);
+            label27.TabIndex = 2;
+            label27.Text = "Quyền trên bảng";
+            // 
+            // comboBoxRevokeUsers
+            // 
+            comboBoxRevokeUsers.FormattingEnabled = true;
+            comboBoxRevokeUsers.Location = new Point(163, 63);
+            comboBoxRevokeUsers.Name = "comboBoxRevokeUsers";
+            comboBoxRevokeUsers.Size = new Size(209, 23);
+            comboBoxRevokeUsers.TabIndex = 1;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Location = new Point(49, 61);
+            label28.Name = "label28";
+            label28.Size = new Size(50, 25);
+            label28.TabIndex = 0;
+            label28.Text = "User";
             // 
             // tabPageEditUser
             // 
@@ -1272,6 +1412,9 @@
             tabPageGrantUser.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
+            tabPageRevokeUser.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             tabPage4.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
             tabPageCreateRole.ResumeLayout(false);
@@ -1392,5 +1535,17 @@
         private ComboBox comboBoxUsers;
         private Label label19;
         private Button buttonGrantUser;
+        private Label label23;
+        private Panel panel7;
+        private Label label24;
+        private Button buttonRevokeUser;
+        private ComboBox comboBoxRevokeTable;
+        private Label label25;
+        private ComboBox comboBoxRevokeSystemPrivileges;
+        private ComboBox comboBoxRevokeObjectPrivileges;
+        private Label label26;
+        private Label label27;
+        private ComboBox comboBoxRevokeUsers;
+        private Label label28;
     }
 }

@@ -21,6 +21,7 @@ namespace Project_DSiIS
                 public const string GetUserPrivileges = "sp_get_user_privileges";
                 public const string GetRolePrivileges = "sp_get_role_privileges";
                 public const string GrantPremissionToUser = "sp_grant_permission_to_user";
+                public const string RevokePremissionFromUser = "sp_revoke_permission_from_user";
             }
 
             private OracleConnection _conn;
