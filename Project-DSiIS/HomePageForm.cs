@@ -144,7 +144,7 @@ namespace Project_DSiIS
         {
             if (tabControl2.SelectedIndex == 3)
             {
-                //ComboBox Danh sach roel
+                //ComboBox Danh sach role
                 DataTable datatable = _orl.GetUserData("select role from dba_roles");
                 comboBoxRoles.ValueMember = "Role";
                 comboBoxRoles.DisplayMember = "Role";
@@ -168,7 +168,7 @@ namespace Project_DSiIS
             }
             else if (tabControl2.SelectedIndex == 4)
             {
-                //ComboBox Danh sach roel
+                //ComboBox Danh sach role
                 DataTable datatable = _orl.GetUserData("select role from dba_roles");
                 comboBoxRolesRevoke.ValueMember = "Role";
                 comboBoxRolesRevoke.DisplayMember = "Role";
@@ -188,6 +188,22 @@ namespace Project_DSiIS
                 comboBoxTableRolesRevoke.DisplayMember = "Table_name";
                 comboBoxTableRolesRevoke.DataSource = dataTable3;
                 comboBoxTableRolesRevoke.SelectedIndex = -1;
+            }
+            else if (tabControl2.SelectedIndex == 6)
+            {
+                //ComboBox Danh sach Role
+                DataTable datatable1 = _orl.GetUserData("select role from dba_roles");
+                comboBoxRolenameAssign.ValueMember = "Role";
+                comboBoxRolenameAssign.DisplayMember = "Role";
+                comboBoxRolenameAssign.DataSource = datatable1;
+                comboBoxRolenameAssign.SelectedIndex = -1;
+
+                //ComboBox Danh sach User
+                DataTable datatable2 = _orl.GetUserData("select * from all_users ORDER BY CREATED DESC");
+                comboBoxUsernameAssign.ValueMember = "User";
+                comboBoxUsernameAssign.DisplayMember = "UserName";
+                comboBoxUsernameAssign.DataSource = datatable2;
+                comboBoxUsernameAssign.SelectedIndex = -1;
             }
         }
 
@@ -686,7 +702,30 @@ namespace Project_DSiIS
 
         private void SearchByRole_TextChanged(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewRoles,SearchByRole.Text);
+            _orl.GetUserandRole(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewRoles, SearchByRole.Text);
+        }
+
+        
+        private void buttonAssignRoletoUser_Click(object sender, EventArgs e)
+        {
+            string roleName = comboBoxRolenameAssign.Text;
+            string userName = comboBoxUsernameAssign.Text;
+            Dictionary<string, object>  parameterDict = new Dictionary<string, object>
+            {
+                {"p_username", roleName },
+                {"p_role", userName }
+            };
+            try
+            {
+                _orl.ExecuteProcedureWithNoQuery(OracleSQLHandle.SP.AggsinRoletoUser, parameterDict);
+                MessageBox.Show($"Gán role {roleName} thành công cho user {userName}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch(OracleException ex)
+            {
+                MessageBox.Show($"Có lỗi khi thực hiện việc gán role cho user {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
     }
 }

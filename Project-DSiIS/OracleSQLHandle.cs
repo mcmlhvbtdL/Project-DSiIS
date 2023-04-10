@@ -39,6 +39,7 @@ namespace Project_DSiIS
                 //OTHER
                 public const string ShowUserPermission = "sp_show_user_permissions";
                 public const string ShowRolePermission = "sp_show_role_permissions";
+                public const string AggsinRoletoUser = "sp_assign_role_to_user";
             }
 
             private OracleConnection _conn;

@@ -43,6 +43,7 @@
             buttonPrivilUser = new Button();
             dataGridViewPrivilUser = new DataGridView();
             tabPageRole = new TabPage();
+            SearchByRole = new TextBox();
             buttonPrivilRole = new Button();
             dataGridViewRoles = new DataGridView();
             tabPage3 = new TabPage();
@@ -179,7 +180,14 @@
             comboBoxRolesRevoke = new ComboBox();
             label38 = new Label();
             tabPageEditRole = new TabPage();
-            SearchByRole = new TextBox();
+            tagPageAssignRole = new TabPage();
+            panel10 = new Panel();
+            comboBoxUsernameAssign = new ComboBox();
+            comboBoxRolenameAssign = new ComboBox();
+            buttonAssignRoletoUser = new Button();
+            label40 = new Label();
+            label41 = new Label();
+            label42 = new Label();
             tabControlHomePage.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewShowUser).BeginInit();
@@ -221,6 +229,8 @@
             tabPageRevokeRole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
             panel9.SuspendLayout();
+            tagPageAssignRole.SuspendLayout();
+            panel10.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlHomePage
@@ -387,6 +397,14 @@
             tabPageRole.TabIndex = 1;
             tabPageRole.Text = "Theo Role";
             tabPageRole.UseVisualStyleBackColor = true;
+            // 
+            // SearchByRole
+            // 
+            SearchByRole.Location = new Point(149, 9);
+            SearchByRole.Name = "SearchByRole";
+            SearchByRole.Size = new Size(178, 23);
+            SearchByRole.TabIndex = 3;
+            SearchByRole.TextChanged += SearchByRole_TextChanged;
             // 
             // buttonPrivilRole
             // 
@@ -1208,6 +1226,7 @@
             tabControl2.Controls.Add(tabPageGrantRole);
             tabControl2.Controls.Add(tabPageRevokeRole);
             tabControl2.Controls.Add(tabPageEditRole);
+            tabControl2.Controls.Add(tagPageAssignRole);
             tabControl2.Location = new Point(3, 3);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -1782,13 +1801,86 @@
             tabPageEditRole.Text = "Chỉnh sửa quyền Role";
             tabPageEditRole.UseVisualStyleBackColor = true;
             // 
-            // SearchByRole
+            // tagPageAssignRole
             // 
-            SearchByRole.Location = new Point(149, 9);
-            SearchByRole.Name = "SearchByRole";
-            SearchByRole.Size = new Size(178, 23);
-            SearchByRole.TabIndex = 3;
-            SearchByRole.TextChanged += SearchByRole_TextChanged;
+            tagPageAssignRole.Controls.Add(panel10);
+            tagPageAssignRole.Location = new Point(4, 24);
+            tagPageAssignRole.Name = "tagPageAssignRole";
+            tagPageAssignRole.Size = new Size(921, 366);
+            tagPageAssignRole.TabIndex = 6;
+            tagPageAssignRole.Text = "Gán Role cho User";
+            tagPageAssignRole.UseVisualStyleBackColor = true;
+            // 
+            // panel10
+            // 
+            panel10.Controls.Add(comboBoxUsernameAssign);
+            panel10.Controls.Add(comboBoxRolenameAssign);
+            panel10.Controls.Add(buttonAssignRoletoUser);
+            panel10.Controls.Add(label40);
+            panel10.Controls.Add(label41);
+            panel10.Controls.Add(label42);
+            panel10.Dock = DockStyle.Right;
+            panel10.Location = new Point(613, 0);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(308, 366);
+            panel10.TabIndex = 9;
+            // 
+            // comboBoxUsernameAssign
+            // 
+            comboBoxUsernameAssign.FormattingEnabled = true;
+            comboBoxUsernameAssign.Location = new Point(96, 116);
+            comboBoxUsernameAssign.Name = "comboBoxUsernameAssign";
+            comboBoxUsernameAssign.Size = new Size(193, 23);
+            comboBoxUsernameAssign.TabIndex = 7;
+            // 
+            // comboBoxRolenameAssign
+            // 
+            comboBoxRolenameAssign.FormattingEnabled = true;
+            comboBoxRolenameAssign.Location = new Point(96, 74);
+            comboBoxRolenameAssign.Name = "comboBoxRolenameAssign";
+            comboBoxRolenameAssign.Size = new Size(193, 23);
+            comboBoxRolenameAssign.TabIndex = 6;
+            // 
+            // buttonAssignRoletoUser
+            // 
+            buttonAssignRoletoUser.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonAssignRoletoUser.Location = new Point(122, 175);
+            buttonAssignRoletoUser.Name = "buttonAssignRoletoUser";
+            buttonAssignRoletoUser.Size = new Size(123, 36);
+            buttonAssignRoletoUser.TabIndex = 5;
+            buttonAssignRoletoUser.Text = "Gán Role";
+            buttonAssignRoletoUser.UseVisualStyleBackColor = true;
+            buttonAssignRoletoUser.Click += buttonAssignRoletoUser_Click;
+            // 
+            // label40
+            // 
+            label40.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label40.Location = new Point(19, 116);
+            label40.Name = "label40";
+            label40.Size = new Size(83, 47);
+            label40.TabIndex = 3;
+            label40.Text = "Username";
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label41.ForeColor = SystemColors.MenuHighlight;
+            label41.Location = new Point(67, 8);
+            label41.Name = "label41";
+            label41.Size = new Size(222, 32);
+            label41.TabIndex = 2;
+            label41.Text = "Gán Role cho User";
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label42.Location = new Point(14, 77);
+            label42.Name = "label42";
+            label42.Size = new Size(76, 20);
+            label42.TabIndex = 0;
+            label42.Text = "Rolename";
             // 
             // HomePageForm
             // 
@@ -1859,6 +1951,9 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
+            tagPageAssignRole.ResumeLayout(false);
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -2016,5 +2111,13 @@
         private TextBox textBoxRoleInfoRevoke;
         private DataGridView dataGridView4;
         private TextBox SearchByRole;
+        private TabPage tagPageAssignRole;
+        private Panel panel10;
+        private ComboBox comboBoxUsernameAssign;
+        private ComboBox comboBoxRolenameAssign;
+        private Button buttonAssignRoletoUser;
+        private Label label40;
+        private Label label41;
+        private Label label42;
     }
 }
