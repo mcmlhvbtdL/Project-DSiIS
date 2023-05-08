@@ -15,18 +15,33 @@ namespace Project_DSiIS
         {
             //Tạo kết nối với Oracle Database
             string baseConnectionString = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=XEPDB1)));";
-            string connectionString = $"{baseConnectionString} User Id={textBoxUserName.Text};Password={textBoxPassword.Text};DBA Privilege=SYSDBA;";
+            string connectionString = $"{baseConnectionString} User Id={textBoxUserName.Text};Password={textBoxPassword.Text};";
+
+            bool isSysUser = textBoxUserName.Text.ToUpper() == "SYS" ? true : false;
+            if (isSysUser) { connectionString += "DBA Privilege=SYSDBA;"; }
+
             OracleConnection conn = new OracleConnection(connectionString);
 
             try
             {
                 conn.Open();
                 MessageBox.Show(text: "Kết nối thành công", "Tình trạng kết nối");
-                var homePageForm = new HomePageForm(conn);
-                this.Hide();
-                homePageForm.ShowDialog();
-                homePageForm.Close();
-                this.Show();
+                if(isSysUser)
+                {
+                    var homePageForm = new HomePageForm(conn);
+                    this.Hide();
+                    homePageForm.ShowDialog();
+                    homePageForm.Close();
+                    this.Show();
+                } else
+                {
+                    var homePageUser = new HomePageUser(conn);
+                    this.Hide();
+                    homePageUser.ShowDialog();
+                    homePageUser.Close();
+                    this.Show();
+                }
+             
             }
             catch (OracleException ex)
             {

@@ -29,7 +29,7 @@ namespace Project_DSiIS
                 public const string GetUserPrivilegesByUserName = "sp_get_user_privileges_by_username";
                 public const string GrantPremissionToUser = "sp_grant_permission_to_user";
                 public const string RevokePremissionFromUser = "sp_revoke_permission_from_user";
-                
+
                 //ROLES
                 public const string GetRolePrivileges = "sp_get_role_privileges";
                 public const string GetRolePrivilegeByRoleName = "sp_get_role_privileges_rolename";
@@ -49,13 +49,48 @@ namespace Project_DSiIS
                 _conn = conn;
             }
 
-            public DataTable GetUserData(string queryString)
+            public DataTable GetUserDataFromQuery(string queryString)
             {
-                OracleDataAdapter adapter = new OracleDataAdapter(queryString, _conn);
                 DataTable datatable = new DataTable();
+                /*
+                OracleDataAdapter adapter = new OracleDataAdapter(queryString, _conn);
                 try
                 {
                     adapter.Fill(datatable);
+                }
+                catch (OracleException ex)
+                {
+                    MessageBox.Show($"Có lỗi khi truy suất: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                */
+                try
+                {
+                    using(OracleDataAdapter adapter = new OracleDataAdapter(queryString, _conn))
+                    {
+                        adapter.Fill(datatable);
+                    }
+                }
+                catch(OracleException ex)
+                {
+                    MessageBox.Show($"Có lỗi khi truy suất: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+                return datatable;
+            }
+
+            public DataTable GetUserDataFromQuery2(string queryString)
+            {
+                DataTable datatable = new DataTable();
+
+                try
+                {
+                    using (OracleCommand cmd = new OracleCommand(queryString, _conn))
+                    {
+                        using (OracleDataReader reader = cmd.ExecuteReader())
+                        {
+                            datatable.Load(reader);
+                        }
+                    }
                 }
                 catch (OracleException ex)
                 {
@@ -65,7 +100,23 @@ namespace Project_DSiIS
                 return datatable;
             }
 
-            public DataTable GetUserDataFromProcedure(string procedureName, List<OracleParameter> parameters)
+
+            public void GetUsersAndRolesByProcedure(string procedureName, DataGridView dataGridViewName, string searchString = null)
+            {
+                List<OracleParameter> parameters = null;
+
+                if (searchString != null)
+                {
+                    parameters = new List<OracleParameter>
+                    {
+                        new OracleParameter("p_username", OracleDbType.Varchar2, ParameterDirection.Input) { Value = searchString }
+                    };
+                }
+                DataTable datatable = ExecuteProcedureWithQuery(procedureName, parameters);
+                dataGridViewName.DataSource = datatable;
+            }
+
+            public DataTable ExecuteProcedureWithQuery(string procedureName, List<OracleParameter> parameters)
             {
                 DataTable datatable = new DataTable();
                 try
@@ -155,20 +206,7 @@ namespace Project_DSiIS
                 return datatable;
             }
 
-            public void GetUserandRole(string procedureName, DataGridView dataGridViewName, string searchString = null)
-            {
-                List<OracleParameter> parameters = null;
-                if (searchString != null)
-                {
-                    parameters = new List<OracleParameter>
-                {
-                    new OracleParameter("p_username", OracleDbType.Varchar2, ParameterDirection.Input)
-                    { Value = searchString }
-                };
-                }
-                DataTable datatable = GetUserDataFromProcedure(procedureName, parameters);
-                dataGridViewName.DataSource = datatable;
-            }
+
         }
     }
 }

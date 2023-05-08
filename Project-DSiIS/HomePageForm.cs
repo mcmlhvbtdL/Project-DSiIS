@@ -24,8 +24,6 @@ namespace Project_DSiIS
             InitializeComponent();
             _conn = conn;
             _orl = new OracleSQLHandle(conn);
-
-
             InitializeCreateUserDataGridView();
             tabControlHomePage_SelectedIndexChanged(tabControlHomePage, EventArgs.Empty);
             dataGridViewListUser.CellClick -= dataGridViewListUser_CellClick;
@@ -94,21 +92,21 @@ namespace Project_DSiIS
             {
 
                 //ComboBox Danh sach user
-                DataTable datatable = _orl.GetUserData("select * from all_users ORDER BY CREATED DESC");
+                DataTable datatable = _orl.GetUserDataFromQuery("select * from all_users ORDER BY CREATED DESC");
                 comboBoxUsers.ValueMember = "User";
                 comboBoxUsers.DisplayMember = "UserName";
                 comboBoxUsers.DataSource = datatable;
                 comboBoxUsers.SelectedIndex = -1;
 
                 //ComboBox Quyen He Thong
-                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                DataTable datatable2 = _orl.GetUserDataFromQuery("select distinct privilege from dba_sys_privs");
                 comboBoxSystemPrivileges.ValueMember = "Privilege";
                 comboBoxSystemPrivileges.DisplayMember = "Privilege";
                 comboBoxSystemPrivileges.DataSource = datatable2;
                 comboBoxSystemPrivileges.SelectedIndex = -1;
 
                 //ComboBox Table 
-                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                DataTable dataTable3 = _orl.GetUserDataFromQuery("SELECT * FROM all_tables");
                 comboBoxTable.ValueMember = "Table Name";
                 comboBoxTable.DisplayMember = "Table_name";
                 comboBoxTable.DataSource = dataTable3;
@@ -117,21 +115,21 @@ namespace Project_DSiIS
             else if (tabControl1.SelectedIndex == 4)
             {
                 //ComboBox Danh sach user
-                DataTable datatable = _orl.GetUserData("select * from all_users ORDER BY CREATED DESC");
+                DataTable datatable = _orl.GetUserDataFromQuery("select * from all_users ORDER BY CREATED DESC");
                 comboBoxRevokeUsers.ValueMember = "User";
                 comboBoxRevokeUsers.DisplayMember = "UserName";
                 comboBoxRevokeUsers.DataSource = datatable;
                 comboBoxRevokeUsers.SelectedIndex = -1;
 
                 //ComboBox Quyen He Thong
-                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                DataTable datatable2 = _orl.GetUserDataFromQuery("select distinct privilege from dba_sys_privs");
                 comboBoxRevokeSystemPrivileges.ValueMember = "Privilege";
                 comboBoxRevokeSystemPrivileges.DisplayMember = "Privilege";
                 comboBoxRevokeSystemPrivileges.DataSource = datatable2;
                 comboBoxRevokeSystemPrivileges.SelectedIndex = -1;
 
                 //ComboBox Table 
-                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                DataTable dataTable3 = _orl.GetUserDataFromQuery("SELECT * FROM all_tables");
                 comboBoxRevokeTable.ValueMember = "Table Name";
                 comboBoxRevokeTable.DisplayMember = "Table_name";
                 comboBoxRevokeTable.DataSource = dataTable3;
@@ -145,21 +143,21 @@ namespace Project_DSiIS
             if (tabControl2.SelectedIndex == 3)
             {
                 //ComboBox Danh sach role
-                DataTable datatable = _orl.GetUserData("select role from dba_roles");
+                DataTable datatable = _orl.GetUserDataFromQuery("select role from dba_roles");
                 comboBoxRoles.ValueMember = "Role";
                 comboBoxRoles.DisplayMember = "Role";
                 comboBoxRoles.DataSource = datatable;
                 comboBoxRoles.SelectedIndex = -1;
 
                 //ComboxBox quyen he thong
-                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                DataTable datatable2 = _orl.GetUserDataFromQuery("select distinct privilege from dba_sys_privs");
                 comboBoxSystemPrivilegesRoles.ValueMember = "Privilege";
                 comboBoxSystemPrivilegesRoles.DisplayMember = "Privilege";
                 comboBoxSystemPrivilegesRoles.DataSource = datatable2;
                 comboBoxSystemPrivilegesRoles.SelectedIndex = -1;
 
                 //ComboBox table
-                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                DataTable dataTable3 = _orl.GetUserDataFromQuery("SELECT * FROM all_tables");
                 comboBoxTableRoles.ValueMember = "Table Name";
                 comboBoxTableRoles.DisplayMember = "Table_name";
                 comboBoxTableRoles.DataSource = dataTable3;
@@ -169,21 +167,21 @@ namespace Project_DSiIS
             else if (tabControl2.SelectedIndex == 4)
             {
                 //ComboBox Danh sach role
-                DataTable datatable = _orl.GetUserData("select role from dba_roles");
+                DataTable datatable = _orl.GetUserDataFromQuery("select role from dba_roles");
                 comboBoxRolesRevoke.ValueMember = "Role";
                 comboBoxRolesRevoke.DisplayMember = "Role";
                 comboBoxRolesRevoke.DataSource = datatable;
                 comboBoxRolesRevoke.SelectedIndex = -1;
 
                 //ComboxBox quyen he thong
-                DataTable datatable2 = _orl.GetUserData("select distinct privilege from dba_sys_privs");
+                DataTable datatable2 = _orl.GetUserDataFromQuery("select distinct privilege from dba_sys_privs");
                 comboBoxSystemPrivilegesRolesRevoke.ValueMember = "Privilege";
                 comboBoxSystemPrivilegesRolesRevoke.DisplayMember = "Privilege";
                 comboBoxSystemPrivilegesRolesRevoke.DataSource = datatable2;
                 comboBoxSystemPrivilegesRolesRevoke.SelectedIndex = -1;
 
                 //ComboBox table
-                DataTable dataTable3 = _orl.GetUserData("SELECT * FROM all_tables");
+                DataTable dataTable3 = _orl.GetUserDataFromQuery("SELECT * FROM all_tables");
                 comboBoxTableRolesRevoke.ValueMember = "Table Name";
                 comboBoxTableRolesRevoke.DisplayMember = "Table_name";
                 comboBoxTableRolesRevoke.DataSource = dataTable3;
@@ -192,14 +190,14 @@ namespace Project_DSiIS
             else if (tabControl2.SelectedIndex == 6)
             {
                 //ComboBox Danh sach Role
-                DataTable datatable1 = _orl.GetUserData("select role from dba_roles");
+                DataTable datatable1 = _orl.GetUserDataFromQuery("select role from dba_roles");
                 comboBoxRolenameAssign.ValueMember = "Role";
                 comboBoxRolenameAssign.DisplayMember = "Role";
                 comboBoxRolenameAssign.DataSource = datatable1;
                 comboBoxRolenameAssign.SelectedIndex = -1;
 
                 //ComboBox Danh sach User
-                DataTable datatable2 = _orl.GetUserData("select * from all_users ORDER BY CREATED DESC");
+                DataTable datatable2 = _orl.GetUserDataFromQuery("select * from all_users ORDER BY CREATED DESC");
                 comboBoxUsernameAssign.ValueMember = "User";
                 comboBoxUsernameAssign.DisplayMember = "UserName";
                 comboBoxUsernameAssign.DataSource = datatable2;
@@ -211,7 +209,7 @@ namespace Project_DSiIS
         private void buttonShowUser_Click(object sender, EventArgs e)
         {
             string sp_name = "sp_get_all_users";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetAllUsers, dataGridViewShowUser);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetAllUsers, dataGridViewShowUser);
         }
 
         private void textBoxSearchUserName_MouseClick(object sender, MouseEventArgs e)
@@ -221,7 +219,7 @@ namespace Project_DSiIS
 
         private void textBoxSearchUserName_TextChanged(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetUserByUsername, dataGridViewShowUser, textBoxSearchUserName.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetUserByUsername, dataGridViewShowUser, textBoxSearchUserName.Text);
         }
 
         private void InitializeCreateUserDataGridView()
@@ -317,7 +315,7 @@ namespace Project_DSiIS
         private void buttonListUser_Click(object sender, EventArgs e)
         {
             string sp_name = "sp_get_all_users";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetAllUsers, dataGridViewListUser);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetAllUsers, dataGridViewListUser);
         }
 
 
@@ -341,20 +339,20 @@ namespace Project_DSiIS
         private void textBoxDropUser2_TextChanged(object sender, EventArgs e)
         {
             string sp_name = "sp_get_user_by_username";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetUserByUsername, dataGridViewListUser, textBoxDropUser2.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetUserByUsername, dataGridViewListUser, textBoxDropUser2.Text);
         }
 
         private void buttonListRole_Click(object sender, EventArgs e)
         {
             string sp_name = "sp_get_all_role";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetAllRoles, dataGridViewListRole);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetAllRoles, dataGridViewListRole);
         }
 
         private void textBoxSreachListRole_TextChanged(object sender, EventArgs e)
         {
 
             string sp_name = "sp_get_role_by_rolename";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewListRole, textBoxSreachListRole.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewListRole, textBoxSreachListRole.Text);
         }
 
         private void buttonCreateRole_Click(object sender, EventArgs e)
@@ -398,13 +396,13 @@ namespace Project_DSiIS
         private void textBoxListUserCreateUser_TextChanged(object sender, EventArgs e)
         {
             string sp_name = "sp_get_user_by_username";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetUserByUsername, dataGridViewListUserCreateUser, textBoxListUserCreateUser.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetUserByUsername, dataGridViewListUserCreateUser, textBoxListUserCreateUser.Text);
         }
 
         private void buttonListUserCreateUser_Click(object sender, EventArgs e)
         {
             string sp_name = "sp_get_all_users";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetAllUsers, dataGridViewListUserCreateUser);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetAllUsers, dataGridViewListUserCreateUser);
         }
 
         private void buttonDropRole_Click(object sender, EventArgs e)
@@ -434,13 +432,13 @@ namespace Project_DSiIS
         private void buttonViewRoleInDropRoleTab_Click(object sender, EventArgs e)
         {
             string sp_name = "sp_get_all_role";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetAllRoles, dataGridViewDropRole);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetAllRoles, dataGridViewDropRole);
         }
 
         private void textBoxViewRoleInDropRoleTab_TextChanged(object sender, EventArgs e)
         {
             string sp_name = "sp_get_role_by_rolename";
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewDropRole, textBoxViewRoleInDropRoleTab.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewDropRole, textBoxViewRoleInDropRoleTab.Text);
         }
 
         private void buttonEditUserPassword_Click(object sender, EventArgs e)
@@ -482,12 +480,12 @@ namespace Project_DSiIS
 
         private void buttonPrivilUser_Click(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetUserPrivileges, dataGridViewPrivilUser);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetUserPrivileges, dataGridViewPrivilUser);
         }
 
         private void buttonPrivilRole_Click(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetRolePrivileges, dataGridViewRoles);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetRolePrivileges, dataGridViewRoles);
         }
 
         private void buttonGrantUser_Click(object sender, EventArgs e)
@@ -676,41 +674,41 @@ namespace Project_DSiIS
 
         private void SearchByUserName_TextChanged(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetUserPrivilegesByUserName, dataGridViewPrivilUser, SearchByUserName.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetUserPrivilegesByUserName, dataGridViewPrivilUser, SearchByUserName.Text);
         }
 
         private void buttonGrantUserInfo_Click(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.ShowUserPermission, dataGridView1, textBoxGrantUserInfo.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.ShowUserPermission, dataGridView1, textBoxGrantUserInfo.Text);
         }
 
         private void buttonRevokeUserInfo_Click(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.ShowUserPermission, dataGridView2, textBoxRevokeUserInfo.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.ShowUserPermission, dataGridView2, textBoxRevokeUserInfo.Text);
         }
 
         private void buttonRoleInfo_Click(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.ShowRolePermission, dataGridView3, textBoxRoleInfo.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.ShowRolePermission, dataGridView3, textBoxRoleInfo.Text);
         }
 
         private void buttonRoleInfoRevoke_Click(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.ShowRolePermission, dataGridView4, textBoxRoleInfoRevoke.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.ShowRolePermission, dataGridView4, textBoxRoleInfoRevoke.Text);
 
         }
 
         private void SearchByRole_TextChanged(object sender, EventArgs e)
         {
-            _orl.GetUserandRole(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewRoles, SearchByRole.Text);
+            _orl.GetUsersAndRolesByProcedure(OracleSQLHandle.SP.GetRoleByRoleName, dataGridViewRoles, SearchByRole.Text);
         }
 
-        
+
         private void buttonAssignRoletoUser_Click(object sender, EventArgs e)
         {
             string roleName = comboBoxRolenameAssign.Text;
             string userName = comboBoxUsernameAssign.Text;
-            Dictionary<string, object>  parameterDict = new Dictionary<string, object>
+            Dictionary<string, object> parameterDict = new Dictionary<string, object>
             {
                 {"p_username", roleName },
                 {"p_role", userName }
@@ -721,7 +719,7 @@ namespace Project_DSiIS
                 MessageBox.Show($"Gán role {roleName} thành công cho user {userName}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
-            catch(OracleException ex)
+            catch (OracleException ex)
             {
                 MessageBox.Show($"Có lỗi khi thực hiện việc gán role cho user {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
