@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             tabControlHomePage = new TabControl();
-            tabPage1 = new TabPage();
+            tabPageInfor = new TabPage();
             panel1 = new Panel();
+            buttonClear = new Button();
             buttonSelectPB = new Button();
             buttonSelectDA = new Button();
             buttonSelectPC = new Button();
             buttonSlectNV = new Button();
             dataGridViewInfor = new DataGridView();
             tabPage2 = new TabPage();
-            buttonClear = new Button();
             tabControlHomePage.SuspendLayout();
-            tabPage1.SuspendLayout();
+            tabPageInfor.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewInfor).BeginInit();
             SuspendLayout();
             // 
             // tabControlHomePage
             // 
-            tabControlHomePage.Controls.Add(tabPage1);
+            tabControlHomePage.Controls.Add(tabPageInfor);
             tabControlHomePage.Controls.Add(tabPage2);
             tabControlHomePage.Location = new Point(0, 0);
             tabControlHomePage.Name = "tabControlHomePage";
@@ -54,17 +54,17 @@
             tabControlHomePage.Size = new Size(798, 448);
             tabControlHomePage.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPageInfor
             // 
-            tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(dataGridViewInfor);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(790, 420);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabPageInfor.Controls.Add(panel1);
+            tabPageInfor.Controls.Add(dataGridViewInfor);
+            tabPageInfor.Location = new Point(4, 24);
+            tabPageInfor.Name = "tabPageInfor";
+            tabPageInfor.Padding = new Padding(3);
+            tabPageInfor.Size = new Size(790, 420);
+            tabPageInfor.TabIndex = 0;
+            tabPageInfor.Text = "Thông tin chung";
+            tabPageInfor.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -75,8 +75,18 @@
             panel1.Controls.Add(buttonSlectNV);
             panel1.Location = new Point(8, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(658, 39);
+            panel1.Size = new Size(653, 39);
             panel1.TabIndex = 2;
+            // 
+            // buttonClear
+            // 
+            buttonClear.Location = new Point(433, 0);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(93, 39);
+            buttonClear.TabIndex = 3;
+            buttonClear.Text = "Clear";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
             // 
             // buttonSelectPB
             // 
@@ -137,16 +147,6 @@
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // buttonClear
-            // 
-            buttonClear.Location = new Point(433, 0);
-            buttonClear.Name = "buttonClear";
-            buttonClear.Size = new Size(93, 39);
-            buttonClear.TabIndex = 3;
-            buttonClear.Text = "Clear";
-            buttonClear.UseVisualStyleBackColor = true;
-            buttonClear.Click += buttonClear_Click;
-            // 
             // HomePageUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -156,7 +156,7 @@
             Name = "HomePageUser";
             Text = "Trang chủ";
             tabControlHomePage.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            tabPageInfor.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewInfor).EndInit();
             ResumeLayout(false);
@@ -165,7 +165,7 @@
         #endregion
 
         private TabControl tabControlHomePage;
-        private TabPage tabPage1;
+        private TabPage tabPageInfor;
         private Button buttonSlectNV;
         private DataGridView dataGridViewInfor;
         private TabPage tabPage2;

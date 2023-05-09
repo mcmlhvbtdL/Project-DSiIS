@@ -197,6 +197,8 @@ into PHONGBAN values('PB008','San xuat','NV028')
 select*from dual;
 COMMIT;
 /
+
+
 insert  all
 into DEAN values('DA001','San pham X',TO_DATE('01/01/2023','DD/MM/YYYY'),'PB001')
 into DEAN values('DA002','San pham y',TO_DATE('02/01/2023','DD/MM/YYYY'),'PB002')
@@ -206,6 +208,18 @@ into DEAN values('DA005','Cap Quang',TO_DATE('05/01/2023','DD/MM/YYYY'),'PB005')
 into DEAN values('DA006','Dao tao',TO_DATE('06/01/2023','DD/MM/YYYY'),'PB006')
 select*from dual;
 COMMIT;
+/
+
+update NHANVIEN set MANQL='NV001' where VAITRO='Tai chinh';
+update NHANVIEN set MANQL='NV002' where VAITRO='Nhan su';
+update NHANVIEN set MANQL='NV003' where VAITRO='Truong de an';
+update NHANVIEN set MANQL='NV004' where VAITRO='Truong phong';
+/
+update NHANVIEN set PHG='PB002';
+update NHANVIEN set PHG='PB006' where vaitro='Nhan su';
+update NHANVIEN set PHG='PB005' where vaitro='Tai chinh';
+update NHANVIEN set PHG='PB004' where vaitro='Nhan vien';
+update NHANVIEN set PHG='PB003' where vaitro='Truong phong';
 /
 insert all 
 into PHANCONG values('NV009','DA001',30)
@@ -225,24 +239,13 @@ into PHANCONG values('NV017','DA001',30)
 into PHANCONG values('NV018','DA005',30)
 into PHANCONG values('NV010','DA005',30)
 into PHANCONG values('NV010','DA003',30)
-select*from dual
+select*from dual;
 COMMIT;
 /
 
-update NHANVIEN set MANQL='NV001' where VAITRO='Tai chinh';
-update NHANVIEN set MANQL='NV002' where VAITRO='Nhan su';
-update NHANVIEN set MANQL='NV003' where VAITRO='Truong de an';
-update NHANVIEN set MANQL='NV004' where VAITRO='Truong phong';
-/
-update NHANVIEN set PHG='PB002';
-update NHANVIEN set PHG='PB006' where vaitro='Nhan su';
-update NHANVIEN set PHG='PB005' where vaitro='Tai chinh';
-update NHANVIEN set PHG='PB004' where vaitro='Nhan vien';
-update NHANVIEN set PHG='PB003' where vaitro='Truong phong';
-
 --Test insert du lieu thanh cong
 --SHOW USER
---SELECT * FROM NHANVIEN;
---SELECT * FROM PHONGBAN;
---SELECT * FROM DEAN;
---SELECT * FROM PHANCONG;
+--SELECT * FROM EM.NHANVIEN;
+--SELECT * FROM EM.PHONGBAN;
+--SELECT * FROM EM.DEAN;
+--SELECT * FROM EM.PHANCONG;
